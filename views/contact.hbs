@@ -11,49 +11,25 @@
     <!-- Section 3: Leave a Question (Text) -->
     <div class="gridSectionB gridSection03">
         <p class="textMain colorWhite">
-            There are no right or wrong questions. All the questions have their origin and are valid. FAQ (Frequently Asked Questions) is a spot where we
-            resolve all inquiries, and no questions are left unanswered. If You wish to learn more about Grand Year's mission, opportunities or anything else,
-            leave us a message through the form. We will be happy to assist You!
+            There are no right or wrong questions. All the questions have their origin and are valid.
+            <a href="/faq" class="contactLink"> FAQ (Frequently Asked Questions) </a>
+            is a spot where we resolve all inquiries, and no questions are left unanswered. If You wish to learn more about Grand Year's mission, opportunities
+            or anything else, leave us a message through the form. We will be happy to assist You!
         </p>
     </div>
     <!-- Section 4: Leave a Question (Form) -->
     <div class="gridSectionB gridSection04">
-        <form class="formGroup">
+        <form action="/contact" method="post" class="formGroup">
             <div class="formPackage">
-                <label class="form-label" for="faqEmail">Email</label>
-                <input id="faqEmail" class="form-input" type="email" placeholder="Email" />
+                <label class="form-label">Email</label>
+                <input class="form-input" type="email" name="email" placeholder="Email" />
                 <p class="textMini colorWhite">Your Email will not be disclosed. We will use it to contact You if needed.</p>
             </div>
             <div class="formPackage">
-                <label class="form-label" for="faqMessage">Message</label>
-                <textarea id="faqMessage" class="form-input" placeholder="Message" rows="8"></textarea>
+                <label class="form-label">Message</label>
+                <textarea class="form-input" name="message" placeholder="Message" rows="8"></textarea>
             </div>
-            <button id="faqSubmit" class="btn btnSubmit">Submit</button>
+            <button id="faqSubmit" class="btn btnSubmit" type="submit">Submit</button>
         </form>
-    </div>
-    <!-- Section 5: FAQ (Header) -->
-    <div class="gridSectionW gridSection05">
-        <h1 class="alignCenter colorBlack">FAQ</h1>
-    </div>
-    <!-- Section 6: FAQ (Content) -->
-    <div class="gridSectionW gridSection06">
-        <div class="questionPackage">
-            <h2 id="qNumber01" class="packageQ1 colorPrimary">01</h2>
-            <!-- <button id="qEdit01" class="btn btnEdit">Edit</button>
-                        <button id="qDelete01" class="btn btnDelete">Delete</button> -->
-            <h2 id="qText01" class="packageQ2 colorBlack" contenteditable="true">How can I get involved?</h2>
-            <p id="qAnswer01" class="packageA1 colorBlack">The response to Your question will be available here soon.</p>
-            <!-- <button id="aEdit01" class="btn btnEdit">Edit</button>
-                        <button id="aDelete01" class="btn btnDelete">Delete</button> -->
-        </div>
-        <div class="questionPackage">
-            <h2 id="qNumber02" class="packageQ1 colorPrimary">02</h2>
-            <button id="qEdit02" class="btn btnEdit">Edit</button>
-            <button id="qDelete02" class="btn btnDelete">Delete</button>
-            <h2 id="qText02" class="packageQ2 colorBlack" contenteditable="true">When will be your next event?</h2>
-            <p id="qAnswer02" class="packageA1 colorBlack">The response to Your question will be available here soon.</p>
-            <button id="aEdit02" class="btn btnEdit">Edit</button>
-            <button id="aDelete02" class="btn btnDelete">Delete</button>
-        </div>
     </div>
 </div>

@@ -1,0 +1,40 @@
+<div class="gridContainer">
+    <!-- Section 1: Background (EMPTY) -->
+    <!-- Section 2: FAQ (Header) -->
+    <div class="gridSectionB gridSection02">
+        <h1 class="headerFAQ colorPrimary">FAQ</h1>
+        <h2 class="subheaderFAQ colorWhite">Frequently Asked Questions</h2>
+        <p class="alignCenter textMain colorWhite">
+            One place where all the questions are important and answered.
+        </p>
+    </div>
+    <!-- Section 3: FAQ (Content) -->
+    <div class="gridSectionB gridSection03">
+        {{#if contact.length}}
+            {{#each contact}}
+                <div class="questionPackage">
+                    <h2 class="packageQ1 colorPrimary">
+                        {{id}}
+                    </h2>
+                    <h2 class="packageQ2 colorWhite" contenteditable="true">
+                        {{message}}
+                    </h2>
+                    <p class="packageA1 colorWhite">The response to Your question will be available here soon.</p>
+                </div>
+                {{!-- <li><a href="/movies/{{id}}">{{title}}</a> ({{grade}}/10)</li> --}}
+            {{/each}}
+        {{else}}
+            <p class="packageA1 colorWhite">Currently, there are no questions</p>
+        {{/if}}
+
+        {{! <div class="questionPackage">
+            <h2 id="qNumber02" class="packageQ1 colorPrimary">02</h2>
+            <button id="qEdit02" class="btn btnEdit">Edit</button>
+            <button id="qDelete02" class="btn btnDelete">Delete</button>
+            <h2 id="qText02" class="packageQ2 colorWhite" contenteditable="true">When will be your next event?</h2>
+            <p id="qAnswer02" class="packageA1 colorWhite">The response to Your question will be available here soon.</p>
+            <button id="aEdit02" class="btn btnEdit">Edit</button>
+            <button id="aDelete02" class="btn btnDelete">Delete</button>
+        </div> }}
+    </div>
+</div>

@@ -15,7 +15,7 @@
     padding: 0;
 }
 
-/* CSS Framework: Form (Spectre) */
+/* CSS Framework: Form + Button (Spectre) */
 label {
     font-family: "Poppins", sans-serif;
     font-size: 1.5vw;
@@ -71,12 +71,13 @@ textarea {
 }
 .btnEdit:active,
 .btnDelete:active {
-    background: var(--color-01);
-    border-color: var(--color-01);
+    color: var(--color-05);
+    background: var(--color-03);
+    border-color: var(--color-03);
 }
 .btnEdit:hover,
 .btnDelete:hover {
-    border-color: var(--color-01);
+    border-color: var(--color-03);
     text-decoration: none;
 }
 
@@ -86,6 +87,13 @@ textarea {
     grid-template-columns: repeat(12, 1fr);
     margin: 0;
 }
+.gridSection01 {
+    grid-column-start: 1;
+    grid-column-end: 13;
+    height: 100vh;
+}
+
+/* Section Background Color */
 .gridSectionB {
     background-color: var(--color-01);
     padding: 3vw 1vw 0 1vw;
@@ -93,11 +101,6 @@ textarea {
 .gridSectionW {
     background-color: var(--color-03);
     padding: 3vw 1vw 0 1vw;
-}
-.gridSection01 {
-    grid-column-start: 1;
-    grid-column-end: 13;
-    height: 100vh;
 }
 
 /* Text Alignment, Colours */
@@ -236,6 +239,11 @@ footer {
         font-size: 1.5vw;
         margin-top: 0.5vw;
     }
+    .btnEdit,
+    .btnDelete {
+        margin-top: 0.6vw;
+        margin-bottom: 0.8vw;
+    }
 }
 @media (max-width: 900px) and (orientation: portrait) {
     .gridSection01 {
@@ -291,5 +299,10 @@ footer {
     .btn {
         font-size: 3.5vw;
         margin-top: 0.5vw;
+    }
+    .btnEdit,
+    .btnDelete {
+        margin-top: 1.5vw;
+        margin-bottom: 1.2vw;
     }
 }

@@ -2,6 +2,23 @@
     color: var(--color-05);
 }
 
+/* Link Style */
+.contactLink {
+    color: var(--color-05);
+    text-decoration: none;
+}
+.contactLink:hover {
+    font-weight: bold;
+}
+
+/* Page Background */
+body {
+    background-color: var(--color-01);
+}
+footer {
+    color: var(--color-03);
+}
+
 /* Page Grid Sections */
 .gridSection02 {
     grid-column-start: 1;
@@ -17,32 +34,6 @@
     grid-column-end: 13;
     padding: 1vw 7vw 3vw 3vw;
 }
-.gridSection05 {
-    grid-column-start: 1;
-    grid-column-end: 13;
-}
-.gridSection06 {
-    grid-column-start: 1;
-    grid-column-end: 13;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 5vw;
-    row-gap: 3vw;
-    padding: 1vw 7vw 3vw 7vw;
-}
-
-.formPackage {
-    padding-bottom: 0.3vw;
-}
-
-/* Questions And Answers */
-.packageQ1 {
-    font-size: 3vw;
-}
-.packageQ2 {
-    font-size: 1.5vw;
-    padding-bottom: 0.2vw;
-}
 
 /* Background, Images, Icons */
 .backgroundImage {
@@ -50,16 +41,6 @@
     background-image: url(/images/contact/contact-background.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-}
-
-/* Tablet */
-@media (max-width: 1200px) {
-    .packageQ1 {
-        font-size: 3.5vw;
-    }
-    .packageQ2 {
-        font-size: 2.2vw;
-    }
 }
 
 /* Mobile */
@@ -71,21 +52,5 @@
     .gridSection04 {
         grid-column-start: 1;
         padding: 1vw 7vw 5vw 7vw;
-    }
-    .formPackage {
-        padding-bottom: 2vw;
-    }
-    .gridSection06 {
-        display: block;
-        padding: 1vw 7vw 3vw 7vw;
-    }
-    .questionPackage {
-        padding-bottom: 5vw;
-    }
-    .packageQ1 {
-        font-size: 7vw;
-    }
-    .packageQ2 {
-        font-size: 4vw;
     }
 }
