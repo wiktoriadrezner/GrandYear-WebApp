@@ -11,10 +11,9 @@
     <!-- Section 3: Leave a Question (Text) -->
     <div class="gridSectionB gridSection03">
         <p class="textMain colorWhite">
-            There are no right or wrong questions. All the questions have their origin and are valid.
-            <a href="/faq" class="contactLink"> FAQ (Frequently Asked Questions) </a>
-            is a spot where we resolve all inquiries, and no questions are left unanswered. If You wish to learn more about Grand Year's mission, opportunities
-            or anything else, leave us a message through the form. We will be happy to assist You!
+            There are no right or wrong questions. All the questions have their origin and are valid. FAQ (Frequently Asked Questions) is a spot where we
+            resolve all inquiries, and no questions are left unanswered. If You wish to learn more about Grand Year's mission, opportunities or anything else,
+            leave us a message through the form. We will be happy to assist You!
         </p>
     </div>
     <!-- Section 4: Leave a Question (Form) -->
@@ -29,7 +28,33 @@
                 <label class="form-label">Message</label>
                 <textarea class="form-input" name="message" placeholder="Message" rows="8"></textarea>
             </div>
-            <button id="faqSubmit" class="btn btnSubmit" type="submit">Submit</button>
+            <button class="btn btnSubmit" type="submit">Submit</button>
         </form>
+    </div>
+    <!-- Section 5: FAQ (Header) -->
+    <div class="gridSectionW gridSection05">
+        <h1 class="headerFAQ colorPrimary">FAQ</h1>
+        <h2 class="subheaderFAQ colorBlack">Frequently Asked Questions</h2>
+        <p class="alignCenter textMain colorBlack">
+            One place where all the questions are important and answered.
+        </p>
+    </div>
+    <!-- Section 6: FAQ (Content) -->
+    <div class="gridSectionW gridSection06">
+        {{#if contact.length}}
+            {{#each contact}}
+                <div class="questionPackage">
+                    <h2 class="packageQ1 colorPrimary">
+                        {{id}}
+                    </h2>
+                    <h2 class="packageQ2 colorBlack">
+                        {{message}}
+                    </h2>
+                    <p class="packageA1 colorBlack">The response to Your question will be available here soon.</p>
+                    {{! <button id="aEdit02" class="btn btnEdit">Edit</button>
+                    <button id="aDelete02" class="btn btnDelete">Delete</button> }}
+                </div>
+            {{/each}}
+        {{/if}}
     </div>
 </div>

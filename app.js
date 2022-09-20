@@ -41,12 +41,14 @@ app.get("/news", (request, response) => {
     response.render("news", {
         title: "News",
         style: "news.css",
+        news: data.news,
     });
 });
 app.get("/experiences", (request, response) => {
     response.render("experiences", {
         title: "Experiences",
         style: "experiences.css",
+        experiences: data.experiences,
     });
 });
 app.get("/contact", (request, response) => {
@@ -54,12 +56,6 @@ app.get("/contact", (request, response) => {
         title: "Contact",
         style: "contact.css",
         contact: data.contact,
-    });
-});
-app.get("/faq", (request, response) => {
-    response.render("faq", {
-        title: "FAQ",
-        style: "faq.css",
     });
 });
 
@@ -74,7 +70,41 @@ app.post("/contact", function (request, response) {
         message: message,
     });
 
-    response.redirect("/faq");
+    response.redirect("/contact");
+});
+
+// Get NEWS
+app.post("/news", function (request, response) {
+    const date = request.body.date;
+    const title = request.body.title;
+    // const image = request.body.image;
+    const post = request.body.post;
+
+    data.news.push({
+        id: data.news.at(-1).id + 1,
+        date: date,
+        title: title,
+        // image: image,
+        post: post,
+    });
+
+    response.redirect("/news");
+});
+
+// Get EXPERIENCES
+app.post("/experiences", function (request, response) {
+    const name = request.body.name;
+    const link = request.body.link;
+    const experience = request.body.experience;
+
+    data.experiences.push({
+        id: data.experiences.at(-1).id + 1,
+        name: name,
+        link: link,
+        experience: experience,
+    });
+
+    response.redirect("/experiences");
 });
 
 app.listen(8080, () => {

@@ -1,11 +1,10 @@
-.navigationLink01 {
+.navigationLink03 {
     color: var(--color-05);
 }
 
 body {
     background-color: var(--color-01);
 }
-
 footer {
     color: var(--color-03);
 }
@@ -13,17 +12,36 @@ footer {
 /* Page Grid Sections */
 .gridSection02 {
     grid-column-start: 1;
-    grid-column-end: 10;
-    padding-left: 3vw;
+    grid-column-end: 13;
 }
 .gridSection03 {
-    grid-column-start: 10;
+    grid-column-start: 1;
     grid-column-end: 13;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 5vw;
+    row-gap: 5vw;
     padding: 3vw;
 }
-.gridOpportunity {
-    padding-bottom: 3vw;
+.gridSection04 {
+    grid-column-start: 1;
+    grid-column-end: 13;
+    padding: 5vw 10vw 0 10vw;
 }
+
+/* News Package */
+.newsDate {
+    font-size: 1.6vw;
+}
+.newsTitle {
+    font-size: 2vw;
+}
+/* .newsImage {
+    display: block;
+    width: 100%;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+} */
 
 /* Background, Images, Icons */
 .backgroundImage {
@@ -32,72 +50,47 @@ footer {
     background-size: cover;
     background-repeat: no-repeat;
 }
-.opportunityImage {
-    width: 80%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 /* Text Alignment, Colours */
-.gridMiniHeadline {
-    grid-column-start: 1;
-    grid-column-end: 4;
+.newsHeader {
     font-size: 5vw;
-    padding-bottom: 1vw;
+    padding-bottom: 0.5vw;
 }
-.opportunityName {
-    font-size: 1.8vw;
-    padding-top: 1vw;
+.textMain {
+    padding: 0 15vw 0 15vw;
+    text-align: justify;
 }
 
 /* Tablet */
-@media (max-width: 1200px) {
-    .gridSection02 {
-        grid-column-end: 13;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        column-gap: 3vw;
-        padding-left: 10vw;
-        padding-right: 10vw;
+@media (max-width: 1400px) {
+    .newsDate {
+        font-size: 2.3vw;
     }
-    .gridSection03 {
-        grid-column-start: 1;
-    }
-    .opportunityName {
+    .newsTitle {
         font-size: 2.5vw;
     }
 }
 
 /* Mobile */
 @media (max-width: 500px) {
-    .gridSection02 {
-        grid-column-end: 13;
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        padding: 0 0 5vw 0;
+    .newsHeader {
+        font-size: 7vw;
+        padding-top: 2vw;
     }
-    .gridSectionPackage {
-        padding: 5vw 7vw 0 7vw;
+    .textMain {
+        padding: 0 7vw 7vw 7vw;
     }
     .gridSection03 {
         display: block;
-        grid-column-start: 1;
         padding: 0 7vw 0 7vw;
     }
-    .gridOpportunity {
-        padding-bottom: 5vw;
+    .newsPackage {
+        padding-bottom: 7vw;
     }
-    .opportunityImage {
-        width: 70%;
+    .newsDate {
+        font-size: 4.5vw;
     }
-    .gridMiniHeadline {
-        font-size: 7.5vw;
-        padding-bottom: 2vw;
-        padding-top: 5vw;
-    }
-    .opportunityName {
-        font-size: 6.5vw;
-        padding-top: 2vw;
+    .newsTitle {
+        font-size: 5vw;
     }
 }

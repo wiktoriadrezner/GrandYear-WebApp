@@ -1,0 +1,99 @@
+<div class="gridContainer">
+    <!-- Section 1: Background -->
+    <div class="gridSectionW gridSection01 backgroundImage">
+        <h1 class="headerMain">Experiences</h1>
+        <h2 class="subheaderMain">Read Stories and Connect</h2>
+    </div>
+    <!-- Section 2: Ambassadors (Header) -->
+    <div class="gridSectionW gridSection02">
+        <h2 class="experiencesHeader alignCenter colorPrimary">Ambassadors</h2>
+    </div>
+    <!-- Section 3: Ambassadors -->
+    <div class="gridSectionW gridSection03">
+        <div class="packageAmbassador alignCenter">
+            <img class="ambassadorImage" src="images/experiences/experiences-ambassador-01.png" alt="Icon of the Ambassador, Wiktoria" />
+            <h2 class="ambassadorHeader colorPrimary">Wiktoria</h2>
+            <a href="https://www.linkedin.com/in/wiktoriadrezner/" class="ambassadorLink"> CONNECT </a>
+            <p class="ambassadorText alignCenter colorBlack">
+                Wiktoria is the Grand Year's Master Mind that takes care of the project, its execution, resources and events. Her areas of interest are
+                languages, cultures and coding. She lived in three countries, Poland, Romania and Sweden.
+            </p>
+        </div>
+        <div class="packageAmbassador alignCenter">
+            <img class="ambassadorImage" src="images/experiences/experiences-ambassador-02.png" alt="Icon of the Ambassador, Artur" />
+            <h2 class="ambassadorHeader colorPrimary">Artur</h2>
+            <a href="https://www.linkedin.com/in/wiktoriadrezner/" class="ambassadorLink"> CONNECT </a>
+            <p class="ambassadorText alignCenter colorBlack">
+                A traveller, book-lover and enthusiast. His life goal is to travel to as many countries as possible and see the world. He has participated in
+                many Youth Exchanges and Volunteering opportunities abroad and in his home country, the UK.
+            </p>
+        </div>
+        <div class="packageAmbassador alignCenter">
+            <img class="ambassadorImage" src="images/experiences/experiences-ambassador-03.png" alt="Icon of the Ambassador, Kasia" />
+            <h2 class="ambassadorHeader colorPrimary">Kasia</h2>
+            <a href="https://www.linkedin.com/in/wiktoriadrezner/" class="ambassadorLink"> CONNECT </a>
+            <p class="ambassadorText alignCenter colorBlack">
+                A first-year medical student, runner and the biggest foodie. She has worked in over five companies in just three years and loves trying new
+                things.
+            </p>
+        </div>
+    </div>
+    <!-- Section 4: Inspiring Humans (Header) -->
+    <div class="gridSectionW gridSection04">
+        <h2 class="experiencesHeader alignCenter colorPrimary">Inspiring Humans</h2>
+    </div>
+    <!-- Section 5: Experiences -->
+    <div class="gridSectionW gridSection05">
+        {{#if experiences.length}}
+            {{#each experiences}}
+                <div class="packageExperience alignCenter">
+                    <h2 class="experienceHuman colorBlack">
+                        {{name}}
+                    </h2>
+                    <a href="{{link}}" class="experienceLink"> CONNECT </a>
+                    <p class="experienceText alignCenter colorBlack">
+                        {{experience}}
+                    </p>
+                    {{! <button id="aEdit02" class="btn btnEdit">Edit</button>
+                    <button id="aDelete02" class="btn btnDelete">Delete</button> }}
+                </div>
+            {{/each}}
+        {{/if}}
+    </div>
+    <!-- Section 6: Information -->
+    <div class="gridSectionB gridSection06">
+        <h2 class="informationHeader alignRight colorPrimary">Share Your Experience</h2>
+        <p class="informationText colorWhite">
+            You are more than welcome to share Your story with us. Feel free to connect with other Inspiring Humans by sharing Your social media accounts or
+            linking your social media page. Tell us about all the inspiring things you have done and experienced.
+        </p>
+        <h2 class="informationHeader alignRight colorPrimary">Meet the Ambassadors</h2>
+        <p class="informationText colorWhite">
+            The Ambassadors are people who are part of Grand Year's actions and support our message. They have similar yet unique backgrounds and are willing to
+            share their knowledge. Feel free to reach out to them, leave them a message or connect on their SM channels. They are there to listen to Your story
+            and help You if needed.
+        </p>
+    </div>
+    <!-- Section 4: Share Your Story (Form) -->
+    <div class="gridSectionB gridSection07">
+        <form action="/experiences" method="post" class="formGroup">
+            <div class="formPackage">
+                <label class="form-label">Name</label>
+                <input class="form-input" type="text" name="name" placeholder="Enter Your Name" />
+            </div>
+            <div class="formPackage">
+                <label class="form-label">Link</label>
+                <input class="form-input" type="text" name="link" placeholder="Share Your Link" />
+            </div>
+            {{! <div class="formPackage">
+                <label class="form-label">Image</label>
+                <input class="form-input" type="file" name="image" />
+            </div> }}
+            <div class="formPackage">
+                <label class="form-label">Experience</label>
+                <textarea class="form-input" name="experience" placeholder="Share Your Experience Here" rows="8"></textarea>
+            </div>
+            <button class="btn btnSubmit" type="submit">Share Your Experience</button>
+        </form>
+    </div>
+</div>

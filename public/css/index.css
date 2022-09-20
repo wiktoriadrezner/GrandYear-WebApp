@@ -1,3 +1,7 @@
+.navigationName {
+    color: var(--color-05);
+}
+
 /* Page Grid Sections */
 .gridSection02 {
     grid-column-start: 1;
@@ -47,7 +51,7 @@
 }
 
 /* Tablet */
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
     .gridSection06 {
         grid-column-start: 2;
     }

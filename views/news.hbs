@@ -4,39 +4,54 @@
         <h1 class="headerMain">Grand News</h1>
         <h2 class="subheaderMain">Read and Stay on Your Toes</h2>
     </div>
-    <!-- Section 2: News -->
+    <!-- Section 2: Header -->
     <div class="gridSectionB gridSection02">
-        <h1 class="gridMiniHeadline alignCenter colorPrimary">Our Actions</h1>
-        <!-- Publish Form -->
-        <form class="formGroup">
-            <div class="formPackage">
-                <label class="form-label" for="newsDate">Date</label>
-                <input id="newsDate" class="form-input" type="date" />
-            </div>
-            <div class="formPackage">
-                <label class="form-label" for="newsTitle">Title</label>
-                <input id="newsTitle" class="form-input" type="text" placeholder="Title" />
-            </div>
-            <div class="formPackage">
-                <label class="form-label" for="newsImage">Image</label>
-                <input id="newsImage" class="form-input" type="file" />
-            </div>
-            <div class="formPackage">
-                <label class="form-label" for="newsPost">Post</label>
-                <textarea id="newsPost" class="form-input" placeholder="Post Content" rows="8"></textarea>
-            </div>
-            <button id="faqSubmit" class="btn btnSubmit">Publish</button>
-        </form>
-        <!-- List of News -->
-        <div id="listOfNews">
-
-        </div>
-    </div>
-    <!-- Section 3: Description -->
-    <div class="gridSectionB gridSection03">
+        <h2 class="newsHeader alignCenter colorPrimary">Events, Tips & News</h2>
         <p class="textMain colorWhite">
-            We want to keep You updated about our actions and events — both online and offline. In the Grand News section, You have a chance to read about all
-            the things that are happening around You. Check this page often to see if You have missed something, and stay up-to-date with us.
+            Read about all the great things that we do. Here, you will find the most recent information regarding our events, activities, meetings and many
+            more. Read our tips for growth, learning and getting new skills. Learn how you can make an impact. Check how we are getting involved and spread the
+            Grand Message.
         </p>
+    </div>
+    <!-- Section 3: News -->
+    <div class="gridSectionB gridSection03">
+        {{#if news.length}}
+            {{#each news}}
+                <div class="newsPackage">
+                    <h2 class="newsDate colorPrimary">
+                        {{date}}
+                    </h2>
+                    <h2 class="newsTitle colorWhite">
+                        {{title}}
+                    </h2>
+                    {{!-- <img class="newsImage" src="{{image}}" /> --}}
+                    <p class="colorWhite">{{post}}</p>
+                    {{! <button id="aEdit02" class="btn btnEdit">Edit</button>
+                    <button id="aDelete02" class="btn btnDelete">Delete</button> }}
+                </div>
+            {{/each}}
+        {{/if}}
+    </div>
+    <!-- Section 4: Share News (Form) -->
+    <div class="gridSectionB gridSection04">
+        <form action="/news" method="post" class="formGroup">
+            <div class="formPackage">
+                <label class="form-label">Date</label>
+                <input class="form-input" type="date" name="date" />
+            </div>
+            <div class="formPackage">
+                <label class="form-label">Title</label>
+                <input class="form-input" type="text" name="title" placeholder="Title" />
+            </div>
+            {{! <div class="formPackage">
+                <label class="form-label">Image</label>
+                <input class="form-input" type="file" name="image" />
+            </div> }}
+            <div class="formPackage">
+                <label class="form-label">Post</label>
+                <textarea class="form-input" name="post" placeholder="Post Content" rows="8"></textarea>
+            </div>
+            <button class="btn btnSubmit" type="submit">Publish</button>
+        </form>
     </div>
 </div>
