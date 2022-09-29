@@ -1,6 +1,30 @@
 const express = require("express");
 const expressHandlebars = require("express-handlebars");
-const data = require("./data");
+const sqlite3 = require("sqlite3");
+
+const database = new sqlite3.Database("grand-year-database.db");
+database.run(`
+	CREATE TABLE IF NOT EXISTS contact (
+		id INTEGER PRIMARY KEY,
+		email TEXT,
+		message TEXT,
+        response TEXT
+	);
+`);
+
+// CREATE TABLE IF NOT EXISTS news (
+//     id INTEGER PRIMARY KEY,
+//     date TEXT,
+//     title TEXT,
+//     post TEXT
+// );
+// CREATE TABLE IF NOT EXISTS experiences (
+//     id INTEGER PRIMARY KEY,
+//     name TEXT,
+//     link TEXT,
+//     experience TEXT
+// );
+
 const app = express();
 
 app.use(express.static("public"));
@@ -52,10 +76,13 @@ app.get("/experiences", (request, response) => {
     });
 });
 app.get("/contact", (request, response) => {
-    response.render("contact", {
-        title: "Contact",
-        style: "contact.css",
-        contact: data.contact,
+    const query = `SELECT * FROM contact`;
+    database.all(query, function (error, contact) {
+        response.render("contact", {
+            title: "Contact",
+            style: "contact.css",
+            contact: contact,
+        });
     });
 });
 
@@ -64,13 +91,12 @@ app.post("/contact", function (request, response) {
     const email = request.body.email;
     const message = request.body.message;
 
-    data.contact.push({
-        id: data.contact.at(-1).id + 1,
-        email: email,
-        message: message,
-    });
+    const query = `INSERT INTO contact (email, message, response) VALUES (?, ?, ?)`;
+    const values = [email, message, "The response to Your question will be available here soon."];
 
-    response.redirect("/contact");
+    database.run(query, values, function (error) {
+        response.redirect("/contact");
+    });
 });
 
 // Get NEWS
