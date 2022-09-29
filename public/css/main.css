@@ -185,6 +185,12 @@ header a:hover {
 .navigationLinks {
     padding: 0 3vw 0 3vw;
 }
+.navigationLogged {
+    font-family: "Poppins", sans-serif;
+    color: var(--color-03);
+    visibility: hidden;
+    height: 0;
+}
 
 /* Footer */
 footer {
