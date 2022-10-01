@@ -18,6 +18,12 @@
     </div>
     <!-- Section 4: Leave a Question (Form) -->
     <div class="gridSectionB gridSection04">
+        {{#if errorMessages.length}}
+            <p>Your message couldn't be submitted.</p>
+                {{#each errorMessages}}
+                    <li>{{this}}</li>
+                {{/each}}
+        {{/if}} 
         <form action="/contact" method="post" class="formGroup">
             <div class="formPackage">
                 <label class="form-label">Email</label>
@@ -53,8 +59,10 @@
                     <p class="packageA1 colorBlack">
                         {{response}}
                     </p>
-                    {{! <button id="aEdit02" class="btn btnEdit">Edit</button>
-                    <button id="aDelete02" class="btn btnDelete">Delete</button> }}
+                    {{#if ../session.isLoggedIn}}
+                        <button id="aEdit02" class="btn btnEdit">Edit</button>
+                        <button id="aDelete02" class="btn btnDelete">Delete</button>
+                    {{/if}}
                 </div>
             {{/each}}
         {{/if}}

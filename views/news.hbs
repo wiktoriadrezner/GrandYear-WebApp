@@ -26,32 +26,36 @@
                     </h2>
                     {{!-- <img class="newsImage" src="{{image}}" /> --}}
                     <p class="colorWhite">{{post}}</p>
-                    {{! <button id="aEdit02" class="btn btnEdit">Edit</button>
-                    <button id="aDelete02" class="btn btnDelete">Delete</button> }}
+                    {{#if ../session.isLoggedIn}}
+                        <button id="aEdit02" class="btn btnEdit">Edit</button>
+                        <button id="aDelete02" class="btn btnDelete">Delete</button>
+                    {{/if}}
                 </div>
             {{/each}}
         {{/if}}
     </div>
     <!-- Section 4: Share News (Form) -->
-    <div class="gridSectionB gridSection04">
-        <form action="/news" method="post" class="formGroup">
-            <div class="formPackage">
-                <label class="form-label">Date</label>
-                <input class="form-input" type="date" name="date" />
-            </div>
-            <div class="formPackage">
-                <label class="form-label">Title</label>
-                <input class="form-input" type="text" name="title" placeholder="Title" />
-            </div>
-            {{! <div class="formPackage">
+    {{#if session.isLoggedIn}}
+        <div class="gridSectionB gridSection04">
+            <form action="/news" method="post" class="formGroup">
+                <div class="formPackage">
+                    <label class="form-label">Date</label>
+                    <input class="form-input" type="date" name="date" />
+                </div>
+                <div class="formPackage">
+                    <label class="form-label">Title</label>
+                    <input class="form-input" type="text" name="title" placeholder="Title" />
+                </div>
+                {{! <div class="formPackage">
                 <label class="form-label">Image</label>
                 <input class="form-input" type="file" name="image" />
             </div> }}
-            <div class="formPackage">
-                <label class="form-label">Post</label>
-                <textarea class="form-input" name="post" placeholder="Post Content" rows="8"></textarea>
-            </div>
-            <button class="btn btnSubmit" type="submit">Publish</button>
-        </form>
-    </div>
+                <div class="formPackage">
+                    <label class="form-label">Post</label>
+                    <textarea class="form-input" name="post" placeholder="Post Content" rows="8"></textarea>
+                </div>
+                <button class="btn btnSubmit" type="submit">Publish</button>
+            </form>
+        </div>
+    {{/if}}
 </div>

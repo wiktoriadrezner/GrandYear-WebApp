@@ -14,3 +14,19 @@ footer {
     grid-column-start: 5;
     grid-column-end: 9;
 }
+
+/* Tablet */
+@media (max-width: 1400px) {
+    .gridSection02 {
+        grid-column-start: 4;
+        grid-column-end: 10;
+    }
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+    .gridSection02 {
+        grid-column-start: 2;
+        grid-column-end: 12;
+    }
+}

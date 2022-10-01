@@ -188,8 +188,6 @@ header a:hover {
 .navigationLogged {
     font-family: "Poppins", sans-serif;
     color: var(--color-03);
-    visibility: hidden;
-    height: 0;
 }
 
 /* Footer */
@@ -216,6 +214,9 @@ footer {
     }
     .navigationName {
         font-size: 3vw;
+    }
+    .navigationLogged {
+        font-size: 2vw;
     }
     h2 {
         font-size: 3.5vw;
@@ -276,6 +277,9 @@ footer {
     }
     .navigationName {
         font-size: 6vw;
+    }
+    .navigationLogged {
+        font-size: 4vw;
     }
     h2 {
         font-size: 7.5vw;

@@ -3,8 +3,11 @@ const expressHandlebars = require("express-handlebars");
 const expressSession = require("express-session");
 const sqlite3 = require("sqlite3");
 
-const adminUsername = "dreznerwiktoria";
-const adminPassword = "grandYearPass2022()123admin";
+const adminUsername = "123";
+const adminPassword = "123";
+
+// const adminUsername = "dreznerwiktoria";
+// const adminPassword = "grandYearPass2022()123admin";
 
 // SET UP DATABASE
 const database = new sqlite3.Database("grand-year-database.db");
@@ -59,10 +62,14 @@ app.use(
     })
 );
 
+app.use((request, response, next) => {
+    response.locals.session = request.session;
+    next();
+});
+
 // ROUTING
 app.get("/", (request, response) => {
     response.render("index", {
-        session: request.session,
         title: "Grand Year",
         style: "index.css",
     });
@@ -87,86 +94,239 @@ app.get("/opportunities", (request, response) => {
 });
 app.get("/news", (request, response) => {
     const query = `SELECT * FROM news`;
-    database.all(query, function (error, news) {
+    database.all(query, (error, news) => {
+        const errorMessages = [];
+
+        if (error) {
+            errorMessages.push("INTERNAL SERVER ERROR");
+        }
+
         response.render("news", {
             title: "News",
             style: "news.css",
-            news: news,
+            errorMessages,
+            news,
         });
     });
 });
 app.get("/experiences", (request, response) => {
     const query = `SELECT * FROM experiences`;
-    database.all(query, function (error, experiences) {
+    database.all(query, (error, experiences) => {
+        const errorMessages = [];
+
+        if (error) {
+            errorMessages.push("INTERNAL SERVER ERROR");
+        }
+
         response.render("experiences", {
             title: "Experiences",
             style: "experiences.css",
-            experiences: experiences,
+            errorMessages,
+            experiences,
         });
     });
 });
 app.get("/contact", (request, response) => {
     const query = `SELECT * FROM contact`;
-    database.all(query, function (error, contact) {
+    database.all(query, (error, contact) => {
+        const errorMessages = [];
+
+        if (error) {
+            errorMessages.push("INTERNAL SERVER ERROR");
+        }
+
         response.render("contact", {
             title: "Contact",
             style: "contact.css",
-            contact: contact,
+            errorMessages,
+            contact,
         });
     });
 });
 
 // POST CONTACT
-app.post("/contact", function (request, response) {
+app.post("/contact", (request, response) => {
+    const errorMessages = [];
+
     const email = request.body.email;
     const message = request.body.message;
 
-    const query = `INSERT INTO contact (email, message, response) VALUES (?, ?, ?)`;
-    const values = [email, message, "The response to Your question will be available here soon."];
+    // CHECK IF ERROR
+    if (email == "") {
+        errorMessages.push("An EMAIL cannot be empty");
+    }
+    if (message == "") {
+        errorMessages.push("A MESSAGE cannot be empty");
+    }
 
-    database.run(query, values, function (error) {
-        response.redirect("/contact");
-    });
+    // IF NO ERROR
+    if (errorMessages.length == 0) {
+        const query = `INSERT INTO contact (email, message, response) VALUES (?, ?, ?)`;
+        const values = [email, message, "The response to Your question will be available here soon."];
+
+        database.run(query, values, (error) => {
+            if (error) {
+                errorMessages.push("INTERNAL SEVER ERROR");
+                const query = `SELECT * FROM contact`;
+                database.all(query, (error, contact) => {
+                    response.render("contact", {
+                        title: "Contact",
+                        style: "contact.css",
+                        errorMessages,
+                        contact,
+                        email,
+                        message,
+                    });
+                });
+            } else {
+                response.redirect("/contact");
+            }
+        });
+    } // IF ERROR
+    else {
+        const query = `SELECT * FROM contact`;
+        database.all(query, (error, contact) => {
+            response.render("contact", {
+                title: "Contact",
+                style: "contact.css",
+                contact,
+                email,
+                message,
+            });
+            console.log(errorMessages.length);
+        });
+    }
 });
 
 // POST NEWS
-app.post("/news", function (request, response) {
+app.post("/news", (request, response) => {
+    const errorMessages = [];
+
     const date = request.body.date;
     const title = request.body.title;
     const post = request.body.post;
     // const image = request.body.image;
 
-    const query = `INSERT INTO news (date, title, post) VALUES (?, ?, ?)`;
-    const values = [date, title, post];
+    // CHECK IF ERROR
+    if (date == "") {
+        errorMessages.push("A DATE cannot be empty");
+    }
+    if (title == "") {
+        errorMessages.push("A TITLE cannot be empty");
+    }
+    if (post == "") {
+        errorMessages.push("A POST cannot be empty");
+    }
 
-    database.run(query, values, function (error) {
-        response.redirect("/news");
-    });
+    // IF NO ERROR
+    if (errorMessages.length == 0) {
+        const query = `INSERT INTO news (date, title, post) VALUES (?, ?, ?)`;
+        const values = [date, title, post];
+
+        database.run(query, values, (error) => {
+            if (error) {
+                errorMessages.push("INTERNAL SEVER ERROR");
+                const query = `SELECT * FROM news`;
+                database.all(query, (error, news) => {
+                    response.render("news", {
+                        title: "News",
+                        style: "news.css",
+                        errorMessages,
+                        news,
+                        date,
+                        title,
+                        post,
+                    });
+                });
+            } else {
+                response.redirect("/news");
+            }
+        });
+    } // IF ERROR
+    else {
+        const query = `SELECT * FROM news`;
+        database.all(query, (error, news) => {
+            response.render("news", {
+                title: "News",
+                style: "news.css",
+                errorMessages,
+                news,
+                date,
+                title,
+                post,
+            });
+        });
+    }
 });
 
 // POST EXPERIENCES
-app.post("/experiences", function (request, response) {
+app.post("/experiences", (request, response) => {
+    const errorMessages = [];
+
     const name = request.body.name;
     const link = request.body.link;
     const experience = request.body.experience;
 
-    const query = `INSERT INTO experiences (name, link, experience) VALUES (?, ?, ?)`;
-    const values = [name, link, experience];
+    // CHECK IF ERROR
+    if (name == "") {
+        errorMessages.push("A NAME cannot be empty");
+    }
+    if (link == "") {
+        errorMessages.push("A LINK cannot be empty");
+    }
+    if (experience == "") {
+        errorMessages.push("An EXPERIENCE cannot be empty");
+    }
 
-    database.run(query, values, function (error) {
-        response.redirect("/experiences");
-    });
+    // IF NO ERROR
+    if (errorMessages.length == 0) {
+        const query = `INSERT INTO experiences (name, link, experience) VALUES (?, ?, ?)`;
+        const values = [name, link, experience];
+
+        database.run(query, values, (error) => {
+            if (error) {
+                errorMessages.push("INTERNAL SEVER ERROR");
+                const query = `SELECT * FROM experiences`;
+                database.all(query, (error, experiences) => {
+                    response.render("experiences", {
+                        title: "Experiences",
+                        style: "experiences.css",
+                        errorMessages,
+                        experiences,
+                        name,
+                        link,
+                        experience,
+                    });
+                });
+            } else {
+                response.redirect("/experiences");
+            }
+        });
+    } // IF ERROR
+    else {
+        const query = `SELECT * FROM experiences`;
+        database.all(query, (error, experiences) => {
+            response.render("experiences", {
+                title: "Experiences",
+                style: "experiences.css",
+                errorMessages,
+                experiences,
+                name,
+                link,
+                experience,
+            });
+        });
+    }
 });
 
 // LOG IN
-app.post("/admin", function (request, response) {
+app.post("/admin", (request, response) => {
     const username = request.body.username;
     const password = request.body.password;
 
     if (username == adminUsername && password == adminPassword) {
+        // SESSION IF LOGGED IN
         request.session.isLoggedIn = true;
-        // document.getElementById("navigationAdmin").style.visibility = "visible";
-        // document.getElementById("navigationAdmin").style.height = "auto";
         response.redirect("/");
     } else {
         response.render("admin", {
