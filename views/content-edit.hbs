@@ -1,0 +1,67 @@
+<div class="gridContainer">
+    <!-- SECTION 0: INTERNAL ERROR -->
+    {{#if errorMessagesInternal.length}}
+        <div class="gridSection00">
+            <p class="errorMessageHeader">! ERROR !</p>
+            <p class="errorMessage">
+                {{#each errorMessagesInternal}}
+                    {{this}}
+                {{/each}}
+            </p>
+        </div>
+    {{/if}}
+    {{#if contactOne}}
+        <!-- SECTION 2: EDIT CONTACT -->
+        <div class="gridSection02">
+            <h1>Edit Contact</h1>
+            {{#if errorMessagesExternal.length}}
+                <p class="errorMessageHeader">! ERROR !</p>
+                <p class="errorMessage">WE COULDN'T UPDATE THE CONTACT ENTRY.
+                    {{#each errorMessagesExternal}}
+                        {{this}}
+                    {{/each}}
+                </p>
+            {{/if}}
+            <form method="post" class="formGroup">
+                <div class="formPackage">
+                    <label class="form-label">Message</label>
+                    <textarea class="form-input" name="message" placeholder="Edit the Message" rows="4">{{contactOne.message}}</textarea>
+                </div>
+                <div class="formPackage">
+                    <label class="form-label">Response</label>
+                    <textarea class="form-input" name="response" placeholder="Edit the Response" rows="8">{{contactOne.response}}</textarea>
+                </div>
+                <button class="btn btnSubmit" type="submit">Update</button>
+            </form>
+        </div>
+    {{/if}}
+    {{#if newsOne}}
+        <!-- SECTION 2: EDIT NEWS -->
+        <div class="gridSection02">
+            <h1>Edit News</h1>
+            {{#if errorMessagesExternal.length}}
+                <p class="errorMessageHeader">! ERROR !</p>
+                <p class="errorMessage">WE COULDN'T UPDATE THE NEWS ENTRY.
+                    {{#each errorMessagesExternal}}
+                        {{this}}
+                    {{/each}}
+                </p>
+            {{/if}}
+            <form method="post" class="formGroup">
+                <div class="formPackage">
+                    <label class="form-label">Date</label>
+                    <input class="form-input" type="date" name="date" value="{{newsOne.date}}" />
+                </div>
+                <div class="formPackage">
+                    <label class="form-label">Title</label>
+                    <input class="form-input" type="text" name="title" value="{{newsOne.title}}" placeholder="Edit the Title" />
+                </div>
+                <div class="formPackage">
+                    <label class="form-label">Post</label>
+                    <textarea class="form-input" name="post" placeholder="Edit the Post" rows="8">{{newsOne.post}}</textarea>
+                </div>
+                <button class="btn btnSubmit" type="submit">Update</button>
+            </form>
+        </div>
+    {{/if}}
+</div>

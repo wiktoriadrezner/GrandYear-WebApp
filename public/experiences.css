@@ -1,0 +1,184 @@
+/* NAVIGATION PAGE LINK */
+.navigationLink02 {
+    color: var(--color-05);
+}
+
+/* SECTION 1: BACKGROUND */
+body {
+    background-color: var(--color-03);
+}
+.backgroundImage {
+    background-position: bottom;
+    background-image: url(/images/experiences/experiences-background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* SECTION 2, 4: AMBASSADORS/INSPIRING HUMANS — HEADER */
+.gridSection02,
+.gridSection04 {
+    grid-column-start: 1;
+    grid-column-end: 13;
+    background-color: var(--color-03);
+    padding: 0;
+}
+.gridSection02 h1,
+.gridSection04 h1 {
+    color: var(--color-05);
+    text-align: center;
+    padding: 0 7vw 3vw 7vw;
+}
+
+/* SECTION 3, 5: AMBASSADORS/INSPIRING HUMANS */
+.gridSection03,
+.gridSection05 {
+    grid-column-start: 1;
+    grid-column-end: 13;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 5vw;
+    row-gap: 3vw;
+    background-color: var(--color-03);
+    padding: 0 7vw 3vw 7vw;
+}
+.gridSection03 div,
+.gridSection05 div {
+    text-align: center;
+}
+.gridSection03 img {
+    display: block;
+    margin: auto;
+    width: 60%;
+}
+.gridSection03 h2 {
+    color: var(--color-05);
+}
+.gridSection05 h2 {
+    color: var(--color-01);
+}
+.gridSection05 h2 a {
+    font-size: 2.5vw;
+    color: var(--color-01);
+}
+.gridSection05 h2 a:hover {
+    transition: 0.8s;
+    color: var(--color-05);
+}
+.gridSection03 a,
+.gridSection05 a {
+    font-size: 1.2vw;
+    font-family: "Poppins", sans-serif;
+    text-decoration: none;
+}
+.gridSection03 a:hover,
+.gridSection05 a:hover {
+    transition: 0.8s;
+}
+.gridSection03 a,
+.gridSection05 a:hover {
+    color: var(--color-01);
+}
+.gridSection05 a,
+.gridSection03 a:hover {
+    color: var(--color-05);
+}
+.gridSection03 p,
+.gridSection05 p {
+    margin-bottom: 2.5vw;
+}
+.gridSection05 p {
+    text-align: left;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+/* SECTION 6: INFORMATION */
+.gridSection06 {
+    grid-column-start: 1;
+    grid-column-end: 7;
+    background-color: var(--color-01);
+    padding: 4vw;
+}
+.gridSection06 h2 {
+    text-align: right;
+    color: var(--color-05);
+}
+.gridSection06 p {
+    color: var(--color-03);
+    padding-bottom: 2vw;
+}
+
+/* SECTION 7: FORM — SHARE YOUR STORY */
+.gridSection07 {
+    grid-column-start: 7;
+    grid-column-end: 13;
+    background-color: var(--color-01);
+    padding: 4vw;
+}
+
+/* FOOTER */
+footer {
+    background-color: var(--color-01);
+    color: var(--color-03);
+    margin: 0;
+    padding: 0;
+}
+
+/* RESPONSIVE — TABLET */
+@media (max-width: 1400px) {
+    .gridSection03,
+    .gridSection05 {
+        padding: 0 4vw 0 4vw;
+    }
+    .gridSection03 img {
+        width: 80%;
+        padding-bottom: 1vw;
+    }
+    .gridSection03 a,
+    .gridSection05 a {
+        font-size: 1.5vw;
+    }
+    .gridSection06 {
+        padding: 4vw 2.5vw 4vw 4vw;
+    }
+    .gridSection07 {
+        padding: 4vw 4vw 4vw 2.5vw;
+    }
+}
+
+/* RESPONSIVE — MOBILE */
+@media (max-width: 500px) {
+    .gridSection03,
+    .gridSection05 {
+        display: block;
+        padding: 0 7vw 0 7vw;
+    }
+    .gridSection03 img {
+        width: 70%;
+        padding-bottom: 2vw;
+    }
+    .gridSection03 a,
+    .gridSection05 a {
+        font-size: 3.5vw;
+    }
+    .gridSection03 p,
+    .gridSection05 p {
+        margin: 0 0 7vw 0;
+    }
+    .gridSection05 h2 a {
+        font-size: 7.5vw;
+    }
+    .gridSection06 h2 {
+        padding: 7vw 0 0 0;
+    }
+    .gridSection06 {
+        grid-column-end: 13;
+        padding: 0 7vw 7vw 7vw;
+    }
+    .gridSection07 {
+        grid-column-start: 1;
+        padding: 0 7vw 7vw 7vw;
+    }
+}

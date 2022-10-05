@@ -1,0 +1,40 @@
+<div class="gridContainer">
+    <!-- SECTION 0: INTERNAL ERROR -->
+    {{#if errorMessagesInternal.length}}
+        <div class="gridSection00">
+            <p class="errorMessageHeader">! ERROR !</p>
+            <p class="errorMessage">
+                {{#each errorMessagesInternal}}
+                    {{this}}
+                {{/each}}
+            </p>
+        </div>
+    {{/if}}
+    {{#if contact}}
+        <!-- SECTION 2: FAQ NUMBER -->
+        <div class="gridSection02">
+            <h1>{{contact.id}}</h1>
+        </div>
+        <!-- SECTION 3: FAQ QUESTION/ANSWER -->
+        <div class="gridSection03">
+            <div class="gridPackage03">
+                <h2>QUESTION</h2>
+                <p>{{contact.message}}</p>
+            </div>
+            <div class="gridPackage03">
+                <h2>ANSWER</h2>
+                <p>{{contact.response}}</p>
+            </div>
+            {{!-- {{#if session.isLoggedIn}} --}}
+            <div class="buttonPackage">
+                <a class="buttonLink" href="/contact/edit/{{contact.id}}">
+                    <button class="btn btnEdit">Edit</button>
+                </a>
+                <form class="formButton" action="/contact/delete/{{contact.id}}" method="POST">
+                    <button type="submit" class="btn btnDelete">Delete</button>
+                </form>
+            </div>
+            {{!-- {{/if}} --}}
+        </div>
+    {{/if}}
+</div>

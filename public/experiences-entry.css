@@ -1,0 +1,67 @@
+/* BODY */
+body {
+    background-color: var(--color-01);
+}
+
+/* SECTION 2: EXPERIENCE ENTRY */
+.gridSection02 {
+    grid-column-start: 2;
+    grid-column-end: 12;
+    padding: 3vw 7vw 0 7vw;
+}
+.gridPackage02 {
+    text-align: center;
+}
+.gridPackage02 h1 {
+    text-align: center;
+    color: var(--color-05);
+}
+.gridPackage02 a {
+    font-size: 1.5vw;
+    font-family: "Poppins", sans-serif;
+    text-decoration: none;
+    color: var(--color-03);
+}
+.gridPackage02 a:hover {
+    transition: 0.8s;
+    color: var(--color-05);
+}
+.gridPackage02 p {
+    color: var(--color-03);
+    margin-bottom: 1vw;
+}
+
+/* SECTION 3: COMMENTS */
+.gridSection03 {
+    grid-column-start: 2;
+    grid-column-end: 12;
+    padding: 3vw 7vw 0 7vw;
+}
+.gridPackage03 h2 {
+    color: var(--color-03);
+}
+
+/* FOOTER */
+footer {
+    background-color: var(--color-01);
+    color: var(--color-03);
+}
+
+/* RESPONSIVE — TABLET */
+@media (max-width: 1400px) {
+    .gridSection02 {
+        grid-column-start: 1;
+        grid-column-end: 13;
+        padding: 4vw;
+    }
+}
+
+/* RESPONSIVE — MOBILE */
+@media (max-width: 500px) {
+    .gridSection02 {
+        padding: 7vw;
+    }
+    .gridPackage02 a {
+        font-size: 4vw;
+    }
+}

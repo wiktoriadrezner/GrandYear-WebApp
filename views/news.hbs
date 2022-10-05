@@ -1,61 +1,77 @@
 <div class="gridContainer">
-    <!-- Section 1: Background -->
-    <div class="gridSectionB gridSection01 backgroundImage">
-        <h1 class="headerMain">Grand News</h1>
-        <h2 class="subheaderMain">Read and Stay on Your Toes</h2>
+    <!-- SECTION 0: INTERNAL ERROR -->
+    {{#if errorMessagesInternal.length}}
+        <div class="gridSection00">
+            <p class="errorMessageHeader">! ERROR !</p>
+            <p class="errorMessage">
+                {{#each errorMessagesInternal}}
+                    {{this}}
+                {{/each}}
+            </p>
+        </div>
+    {{/if}}
+    <!-- SECTION 1: BACKGROUND -->
+    <div class="gridSection01 backgroundImage">
+        <h1>Grand News</h1>
+        <h2>Read and Stay on Your Toes</h2>
     </div>
-    <!-- Section 2: Header -->
-    <div class="gridSectionB gridSection02">
-        <h2 class="newsHeader alignCenter colorPrimary">Events, Tips & News</h2>
-        <p class="textMain colorWhite">
+    <!-- SECTION 2: HEADER -->
+    <div class="gridSection02">
+        <h1>Events, Tips & News</h1>
+        <p class="paragraphSection02">
             Read about all the great things that we do. Here, you will find the most recent information regarding our events, activities, meetings and many
             more. Read our tips for growth, learning and getting new skills. Learn how you can make an impact. Check how we are getting involved and spread the
-            Grand Message.
+            Grand Message. Click on the news' title to read more.
         </p>
+        {{#unless news.length}}
+            <p class="errorNoEntries">There are no News at the moment...</p>
+        {{/unless}}
     </div>
-    <!-- Section 3: News -->
-    <div class="gridSectionB gridSection03">
-        {{#if news.length}}
+    <!-- SECTION 3: NEWS -->
+    {{#if news.length}}
+        <div class="gridSection03">
             {{#each news}}
-                <div class="newsPackage">
-                    <h2 class="newsDate colorPrimary">
-                        {{date}}
+                <div>
+                    <h2>{{date}}</h2>
+                    <h2>
+                        <a href="/news/{{id}}">{{title}}</a>
                     </h2>
-                    <h2 class="newsTitle colorWhite">
-                        {{title}}
-                    </h2>
-                    {{!-- <img class="newsImage" src="{{image}}" /> --}}
-                    <p class="colorWhite">{{post}}</p>
-                    {{#if ../session.isLoggedIn}}
-                        <button id="aEdit02" class="btn btnEdit">Edit</button>
-                        <button id="aDelete02" class="btn btnDelete">Delete</button>
-                    {{/if}}
+                    {{!-- <img src="{{image}}" /> --}}
+                    <p>{{post}}</p>
                 </div>
             {{/each}}
+        </div>
+    {{/if}}
+    <!-- SECTION 4: FORM — SHARE NEWS -->
+    {{!-- {{#if session.isLoggedIn}} --}}
+    <div class="gridSection04">
+        {{#if errorMessagesExternal.length}}
+            <p class="errorMessageHeader">! ERROR !</p>
+            <p class="errorMessage">WE COULDN'T SHARE THE NEWS.
+                {{#each errorMessagesExternal}}
+                    {{this}}
+                {{/each}}
+            </p>
         {{/if}}
-    </div>
-    <!-- Section 4: Share News (Form) -->
-    {{#if session.isLoggedIn}}
-        <div class="gridSectionB gridSection04">
-            <form action="/news" method="post" class="formGroup">
-                <div class="formPackage">
-                    <label class="form-label">Date</label>
-                    <input class="form-input" type="date" name="date" />
-                </div>
-                <div class="formPackage">
-                    <label class="form-label">Title</label>
-                    <input class="form-input" type="text" name="title" placeholder="Title" />
-                </div>
-                {{! <div class="formPackage">
+        <form action="/news" method="post" class="formGroup">
+            <div class="formPackage">
+                <label class="form-label">Date</label>
+                <input class="form-input" type="date" name="date" value="{{date}}" />
+            </div>
+            <div class="formPackage">
+                <label class="form-label">Title</label>
+                <input class="form-input" type="text" name="title" value="{{title}}" placeholder="Enter Your Title" />
+            </div>
+            {{! <div class="formPackage">
                 <label class="form-label">Image</label>
                 <input class="form-input" type="file" name="image" />
             </div> }}
-                <div class="formPackage">
-                    <label class="form-label">Post</label>
-                    <textarea class="form-input" name="post" placeholder="Post Content" rows="8"></textarea>
-                </div>
-                <button class="btn btnSubmit" type="submit">Publish</button>
-            </form>
-        </div>
-    {{/if}}
+            <div class="formPackage">
+                <label class="form-label">Post</label>
+                <textarea class="form-input" name="post" placeholder="Enter Your Post" rows="8">{{post}}</textarea>
+            </div>
+            <button class="btn btnSubmit" type="submit">Publish</button>
+        </form>
+    </div>
+    {{!-- {{/if}} --}}
 </div>

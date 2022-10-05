@@ -1,0 +1,149 @@
+/* NAVIGATION PAGE LINK */
+.navigationName {
+    color: var(--color-05);
+}
+
+/* SECTION 1: BACKGROUND */
+.backgroundImage {
+    background-position: bottom;
+    background-image: url(/images/index/index-background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* SECTION 2: HEADER */
+.gridSection02 {
+    grid-column-start: 1;
+    grid-column-end: 13;
+    background-color: var(--color-01);
+    padding: 3vw 1vw 0 1vw;
+    text-align: center;
+}
+.gridSection02 h1 {
+    color: var(--color-03);
+}
+
+/* SECTION 3, 4, 5: VALUES */
+.gridSection03,
+.gridSection04,
+.gridSection05 {
+    background-color: var(--color-01);
+    padding: 0 4vw 4vw 4vw;
+    text-align: center;
+}
+.gridSection03 {
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+.gridSection04 {
+    grid-column-start: 5;
+    grid-column-end: 9;
+}
+.gridSection05 {
+    grid-column-start: 9;
+    grid-column-end: 13;
+}
+.gridSection03 img,
+.gridSection04 img,
+.gridSection05 img {
+    display: block;
+    margin: auto;
+    height: 12vh;
+}
+.gridSection03 h2,
+.gridSection04 h2,
+.gridSection05 h2 {
+    color: var(--color-05);
+}
+.gridSection03 p,
+.gridSection04 p,
+.gridSection05 p {
+    color: var(--color-03);
+}
+
+/* SECTION 6: ABOUT THE FOUNDER — TEXT */
+.gridSection06 {
+    grid-column-start: 3;
+    grid-column-end: 8;
+    background-color: var(--color-03);
+    padding: 3vw 2vw 0 1vw;
+}
+.gridSection06 h2 {
+    text-align: right;
+    color: var(--color-05);
+}
+
+/* SECTION: ABOUT THE FOUNDER — IMAGE */
+.gridSection07 {
+    grid-column-start: 8;
+    grid-column-end: 12;
+    background-color: var(--color-03);
+    padding: 3vw 1vw 0 1vw;
+}
+.gridSection07 img {
+    display: block;
+    margin-right: auto;
+    height: 18vw;
+}
+
+/* RESPONSIVE — TABLET */
+@media (max-width: 1400px) {
+    .gridSection03 {
+        padding: 0 2vw 4vw 4vw;
+    }
+    .gridSection04 {
+        padding: 0 3vw 4vw 3vw;
+    }
+    .gridSection05 {
+        padding: 0 4vw 4vw 2vw;
+    }
+    .gridSection03 img,
+    .gridSection04 img,
+    .gridSection05 img {
+        height: 10vh;
+    }
+    .gridSection06 {
+        grid-column-start: 1;
+        grid-column-end: 9;
+        padding-left: 4vw;
+    }
+    .gridSection07 {
+        grid-column-start: 9;
+    }
+    .gridSection07 img {
+        height: 25vw;
+    }
+}
+
+/* RESPONSIVE — MOBILE */
+@media (max-width: 500px) {
+    .gridSection03 {
+        grid-column-end: 13;
+        padding: 5vw 7vw 0 7vw;
+    }
+    .gridSection04 {
+        grid-column-start: 1;
+        grid-column-end: 13;
+        padding: 5vw 7vw 0 7vw;
+    }
+    .gridSection05 {
+        grid-column-start: 1;
+        padding: 5vw 7vw 5vw 7vw;
+    }
+    .gridSection06 {
+        grid-column-start: 1;
+        grid-column-end: 13;
+        padding: 10vw 7vw 2vw 7vw;
+    }
+    .gridSection06 h2 {
+        text-align: center;
+    }
+    .gridSection07 {
+        grid-column-start: 1;
+        grid-column-end: 13;
+    }
+    .gridSection07 img {
+        margin-left: auto;
+        height: 60vw;
+    }
+}

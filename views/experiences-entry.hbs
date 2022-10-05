@@ -1,0 +1,43 @@
+<div class="gridContainer">
+    <!-- SECTION 0: INTERNAL ERROR -->
+    {{#if errorMessagesInternal.length}}
+        <div class="gridSection00">
+            <p class="errorMessageHeader">! ERROR !</p>
+            <p class="errorMessage">
+                {{#each errorMessagesInternal}}
+                    {{this}}
+                {{/each}}
+            </p>
+        </div>
+    {{/if}}
+    {{#if experiences}}
+        <!-- SECTION 2: EXPERIENCE ENTRY -->
+        <div class="gridSection02">
+            <div class="gridPackage02">
+                <h1>{{experiences.name}}</h1>
+            </div>
+            <div class="gridPackage02">
+                <a href="{{experiences.link}}"> CONNECT </a>
+            </div>
+            <div class="gridPackage02">
+                <p>{{experiences.experience}}</p>
+            </div>
+            {{!-- {{#if session.isLoggedIn}} --}}
+            <div class="buttonPackage">
+                <a class="buttonLink" href="/experiences/edit/{{experiences.id}}">
+                    <button class="btn btnEdit">Edit</button>
+                </a>
+                <form class="formButton" action="/experiences/delete/{{experiences.id}}" method="POST">
+                    <button type="submit" class="btn btnDelete">Delete</button>
+                </form>
+            </div>
+            {{!-- {{/if}} --}}
+        </div>
+        <!-- SECTION 3: COMMENTS -->
+        <div class="gridSection03">
+            <div class="gridPackage03">
+                <h2><span>{{experiences.name}}</span> commented on:</h2>
+            </div>
+        </div>
+    {{/if}}
+</div>

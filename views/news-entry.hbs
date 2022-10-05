@@ -1,0 +1,64 @@
+<div class="gridContainer">
+    <!-- SECTION 0: INTERNAL ERROR -->
+    {{#if errorMessagesInternal.length}}
+        <div class="gridSection00">
+            <p class="errorMessageHeader">! ERROR !</p>
+            <p class="errorMessage">
+                {{#each errorMessagesInternal}}
+                    {{this}}
+                {{/each}}
+            </p>
+        </div>
+    {{/if}}
+    {{#if news}}
+        <!-- SECTION 2: NEWS ENTRY -->
+        <div class="gridSection02">
+            <h2>{{news.date}}</h2>
+            <h1>{{news.title}}</h1>
+            {{!-- <img class="newsImage" src="{{image}}" /> --}}
+            <p>{{news.post}}</p>
+            {{!-- {{#if session.isLoggedIn}} --}}
+            <div class="buttonPackage">
+                <a class="buttonLink" href="/news/edit/{{news.id}}">
+                    <button class="btn btnEdit">Edit</button>
+                </a>
+                <form class="formButton" action="/news/delete/{{news.id}}" method="POST">
+                    <button class="btn btnDelete" type="submit">Delete</button>
+                </form>
+            </div>
+            {{!-- {{/if}} --}}
+        </div>
+        <!-- SECTION 3: COMMENTS -->
+        <div class="gridSection03">
+            <h2>Comments</h2>
+            {{#if comments.length}}
+                {{#each comments}}
+                    <div class="commentPackage">
+                        <h2>success</h2>
+                        <h2>{{date}}</h2>
+                        <h2>
+                            <a href="/news/{{id}}">{{title}}</a>
+                        </h2>
+                        {{!-- <img src="{{image}}" /> --}}
+                        <p>{{post}}</p>
+                    </div>
+                {{/each}}
+            {{/if}}
+        </div>
+        <!-- SECTION 4: COMMENT FORM -->
+        <div class="gridSection04">
+            <h2>Share Your Comment</h2>
+            <form action="/news/{{news.id}}" method="post" class="formGroup">
+                <div class="formPackage">
+                    <label class="form-label">Email</label>
+                    <input class="form-input" type="email" name="email" value="{{email}}" placeholder="Enter Your Email" />
+                </div>
+                <div class="formPackage">
+                    <label class="form-label">Comment</label>
+                    <textarea class="form-input" name="comment" placeholder="Enter Your Comment" rows="4">{{comment}}</textarea>
+                </div>
+                <button class="btn btnSubmit" type="submit">Share</button>
+            </form>
+        </div>
+    {{/if}}
+</div>

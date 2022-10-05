@@ -1,0 +1,153 @@
+/* NAVIGATION PAGE LINK */
+.navigationLink05 {
+    color: var(--color-05);
+}
+
+/* SECTION 1: BACKGROUND */
+.backgroundImage {
+    background-position: bottom;
+    background-image: url(/images/contact/contact-background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* SECTION 2: HEADER — LEAVE A QUESTION */
+.gridSection02 {
+    grid-column-start: 1;
+    grid-column-end: 13;
+    background-color: var(--color-01);
+    padding: 3vw 1vw 0 1vw;
+}
+.gridSection02 h1 {
+    text-align: center;
+    color: var(--color-05);
+}
+
+/* SECTION 3: TEXT — LEAVE A QUESTION */
+.gridSection03 {
+    grid-column-start: 1;
+    grid-column-end: 7;
+    background-color: var(--color-01);
+    padding: 0 3vw 3vw 7vw;
+}
+.gridSection03 p {
+    color: var(--color-03);
+}
+
+/* SECTION 4: FORM — LEAVE A QUESTION */
+.gridSection04 {
+    grid-column-start: 7;
+    grid-column-end: 13;
+    background-color: var(--color-01);
+    padding: 0 7vw 3vw 3vw;
+}
+.gridSection04 form p {
+    font-style: italic;
+    font-size: 1vw;
+    color: var(--color-03);
+    padding-top: 0.5vw;
+}
+
+/* SECTION 5: FAQ — HEADER */
+.gridSection05 {
+    grid-column-start: 1;
+    grid-column-end: 13;
+    background-color: var(--color-03);
+    padding: 3vw 1vw 0 1vw;
+}
+.gridSection05 h1 {
+    line-height: 1;
+    color: var(--color-05);
+    text-align: center;
+}
+.gridSection05 h2 {
+    font-size: 1.8vw;
+    color: var(--color-01);
+    text-align: center;
+}
+.gridSection05 p {
+    color: var(--color-01);
+    text-align: center;
+    padding-bottom: 3vw;
+}
+
+/* SECTION 6: FAQ — CONTENT */
+.gridSection06 {
+    grid-column-start: 1;
+    grid-column-end: 13;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 4vw;
+    row-gap: 3vw;
+    padding: 1vw 4vw 3vw 4vw;
+}
+.gridSection06 h2 {
+    font-size: 3vw;
+    color: var(--color-05);
+}
+.gridSection06 h2 a {
+    font-size: 1.8vw;
+    text-decoration: none;
+    color: var(--color-01);
+}
+.gridSection06 h2 a:hover {
+    transition: 0.8s;
+    color: var(--color-05);
+}
+.gridSection06 p {
+    text-align: left;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    padding-top: 0.5vw;
+    color: var(--color-01);
+}
+
+/* RESPONSIVE — TABLET */
+@media (max-width: 1400px) {
+    .gridSection04 form p {
+        font-size: 1.5vw;
+    }
+    .gridSection06 h2 {
+        font-size: 5vw;
+    }
+}
+
+/* RESPONSIVE — MOBILE */
+@media (max-width: 500px) {
+    .gridSection03 {
+        grid-column-end: 13;
+        padding: 1vw 7vw 3vw 7vw;
+    }
+    .gridSection04 {
+        grid-column-start: 1;
+        padding: 1vw 7vw 5vw 7vw;
+    }
+    .gridSection04 form p {
+        font-size: 3.5vw;
+        padding-top: 1vw;
+    }
+    .gridSection05 {
+        padding: 7vw 5vw 3vw 5vw;
+    }
+    .gridSection05 h2 {
+        font-size: 4vw;
+    }
+    .gridSection05 p {
+        padding-bottom: 1vw;
+    }
+    .gridSection06 {
+        display: block;
+        padding: 1vw 7vw 3vw 7vw;
+    }
+    .gridSection06 div {
+        padding-bottom: 5vw;
+    }
+    .gridSection06 h2 {
+        font-size: 8vw;
+    }
+    .gridSection06 h2 a {
+        font-size: 5vw;
+    }
+}

@@ -1,0 +1,46 @@
+/* BODY */
+body {
+    background-color: var(--color-01);
+}
+
+/* SECTION 1: HEADER */
+.gridSection01 {
+    height: auto;
+}
+.gridSection01 h1 {
+    text-align: center;
+    color: var(--color-05);
+    padding: 0;
+}
+
+/* SECTION 2: LOGIN */
+.gridSection02 {
+    grid-column-start: 5;
+    grid-column-end: 9;
+}
+
+/* FOOTER */
+footer {
+    color: var(--color-03);
+    position: absolute;
+}
+
+/* RESPONSIVE — TABLET */
+@media (max-width: 1400px) {
+    .gridSection02 {
+        grid-column-start: 4;
+        grid-column-end: 10;
+    }
+}
+
+/* RESPONSIVE — MOBILE */
+@media (max-width: 500px) {
+    .gridSection02 {
+        grid-column-start: 1;
+        grid-column-end: 13;
+        padding: 0 7vw 0 7vw;
+    }
+    .btnSubmit {
+        width: 25vw;
+    }
+}

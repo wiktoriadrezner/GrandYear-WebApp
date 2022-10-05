@@ -1,0 +1,57 @@
+/* SECTION 2: FAQ NUMBER */
+.gridSection02 {
+    grid-column-start: 1;
+    grid-column-end: 7;
+    background-color: var(--color-03);
+    padding: 3vw 1vw 0 7vw;
+}
+.gridSection02 h1 {
+    font-size: 25vw;
+    text-align: right;
+    color: var(--color-05);
+}
+
+/* SECTION 3: FAQ QUESTION/ANSWER */
+.gridSection03 {
+    grid-column-start: 7;
+    grid-column-end: 13;
+    background-color: var(--color-03);
+    padding: 6vw 7vw 0 1vw;
+}
+.gridPackage03 {
+    padding: 1.8vw 0 0.2vw 0;
+}
+.gridPackage03 h2 {
+    font-family: "Poppins", sans-serif;
+}
+
+/* RESPONSIVE — TABLET */
+@media (max-width: 1400px) {
+    .gridSection02 h1 {
+        font-size: 30vw;
+    }
+    .gridSection03 {
+        padding: 8vw 7vw 0 1vw;
+    }
+}
+
+/* RESPONSIVE — MOBILE */
+@media (max-width: 500px) {
+    .gridSection02 {
+        grid-column-end: 13;
+        padding: 0 7vw 0 7vw;
+    }
+    .gridSection02 h1 {
+        text-align: center;
+    }
+    .gridSection03 {
+        grid-column-start: 1;
+        padding: 0 7vw 0 7vw;
+    }
+    .gridPackage03 {
+        padding: 0 0 4vw 0;
+    }
+    .gridPackage03 h2 {
+        font-size: 5vw;
+    }
+}
