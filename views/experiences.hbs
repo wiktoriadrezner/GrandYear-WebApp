@@ -3,10 +3,12 @@
     {{#if errorMessagesInternal.length}}
         <div class="gridSection00">
             <p class="errorMessageHeader">! ERROR !</p>
-            <p class="errorMessage">
-                {{#each errorMessagesInternal}}
-                    {{this}}
-                {{/each}}
+            <p class="errorMessage">INTERNAL SERVER ERROR.
+                <span>
+                    {{#each errorMessagesInternal}}
+                        {{this}}
+                    {{/each}}
+                </span>
             </p>
         </div>
     {{/if}}
@@ -102,6 +104,7 @@
             <div class="formPackage">
                 <label class="form-label">Email</label>
                 <input class="form-input" type="email" name="email" placeholder="Enter Your Email" value="{{email}}" />
+                <p>Your Email will not be disclosed. We will only use it to contact You if needed.</p>
             </div>
             <div class="formPackage">
                 <label class="form-label">Link</label>

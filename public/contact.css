@@ -81,14 +81,16 @@
     row-gap: 3vw;
     padding: 1vw 4vw 3vw 4vw;
 }
-.gridSection06 h2 {
+.gridSection06 h1 {
     font-size: 3vw;
     color: var(--color-05);
 }
-.gridSection06 h2 a {
+.gridSection06 h2 {
     font-size: 1.8vw;
-    text-decoration: none;
+}
+.gridSection06 h2 a {
     color: var(--color-01);
+    text-decoration: none;
 }
 .gridSection06 h2 a:hover {
     transition: 0.8s;
@@ -109,7 +111,7 @@
     .gridSection04 form p {
         font-size: 1.5vw;
     }
-    .gridSection06 h2 {
+    .gridSection06 h1 {
         font-size: 5vw;
     }
 }
@@ -144,10 +146,10 @@
     .gridSection06 div {
         padding-bottom: 5vw;
     }
-    .gridSection06 h2 {
+    .gridSection06 h1 {
         font-size: 8vw;
     }
-    .gridSection06 h2 a {
+    .gridSection06 h2 {
         font-size: 5vw;
     }
 }

@@ -23,26 +23,6 @@ body {
     color: var(--color-03);
 }
 
-/* SECTION 3: COMMENTS */
-.gridSection03 {
-    grid-column-start: 2;
-    grid-column-end: 12;
-    padding: 3vw 7vw 0 7vw;
-}
-.gridSection03 h2 {
-    color: var(--color-03);
-}
-
-/* SECTION 4: COMMENT FORM */
-.gridSection04 {
-    grid-column-start: 4;
-    grid-column-end: 10;
-}
-.gridSection04 h2 {
-    color: var(--color-03);
-    text-align: right;
-}
-
 /* FOOTER */
 footer {
     color: var(--color-03);
@@ -50,32 +30,20 @@ footer {
 
 /* RESPONSIVE — TABLET */
 @media (max-width: 1400px) {
-    .gridSection02,
-    .gridSection03 {
+    .gridSection02 {
         grid-column-start: 1;
         grid-column-end: 13;
         padding: 4vw 4vw 0 4vw;
-    }
-    .gridSection04 {
-        grid-column-start: 3;
-        grid-column-end: 11;
-        padding: 4vw 0 0 0;
     }
 }
 
 /* RESPONSIVE — MOBILE */
 @media (max-width: 500px) {
-    .gridSection02,
-    .gridSection03 {
+    .gridSection02 {
         padding: 7vw 7vw 0 7vw;
     }
     .gridSection02 h1 {
         font-size: 5.5vw;
         padding: 1vw 0 1vw 0;
-    }
-    .gridSection04 {
-        grid-column-start: 1;
-        grid-column-end: 13;
-        padding: 7vw;
     }
 }

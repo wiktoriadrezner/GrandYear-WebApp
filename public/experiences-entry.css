@@ -31,16 +31,6 @@ body {
     margin-bottom: 1vw;
 }
 
-/* SECTION 3: COMMENTS */
-.gridSection03 {
-    grid-column-start: 2;
-    grid-column-end: 12;
-    padding: 3vw 7vw 0 7vw;
-}
-.gridPackage03 h2 {
-    color: var(--color-03);
-}
-
 /* FOOTER */
 footer {
     background-color: var(--color-01);
@@ -50,8 +40,8 @@ footer {
 /* RESPONSIVE — TABLET */
 @media (max-width: 1400px) {
     .gridSection02 {
-        grid-column-start: 1;
-        grid-column-end: 13;
+        grid-column-start: 2;
+        grid-column-end: 12;
         padding: 4vw;
     }
 }
@@ -59,6 +49,8 @@ footer {
 /* RESPONSIVE — MOBILE */
 @media (max-width: 500px) {
     .gridSection02 {
+        grid-column-start: 1;
+        grid-column-end: 13;
         padding: 7vw;
     }
     .gridPackage02 a {

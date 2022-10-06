@@ -3,10 +3,12 @@
     {{#if errorMessagesInternal.length}}
         <div class="gridSection00">
             <p class="errorMessageHeader">! ERROR !</p>
-            <p class="errorMessage">
-                {{#each errorMessagesInternal}}
-                    {{this}}
-                {{/each}}
+            <p class="errorMessage">INTERNAL SERVER ERROR.
+                <span>
+                    {{#each errorMessagesInternal}}
+                        {{this}}
+                    {{/each}}
+                </span>
             </p>
         </div>
     {{/if}}
@@ -32,12 +34,6 @@
                 </form>
             </div>
             {{!-- {{/if}} --}}
-        </div>
-        <!-- SECTION 3: COMMENTS -->
-        <div class="gridSection03">
-            <div class="gridPackage03">
-                <h2><span>{{experiences.name}}</span> commented on:</h2>
-            </div>
         </div>
     {{/if}}
 </div>

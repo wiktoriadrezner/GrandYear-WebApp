@@ -19,16 +19,6 @@ database.run(`
         post TEXT
 	);
 `);
-// DATABASE: TABLE — COMMENTS
-database.run(`
-	CREATE TABLE IF NOT EXISTS comments (
-		id INTEGER PRIMARY KEY AUTOINCREMENT,
-        news_id INTEGER,
-        email TEXT,
-		comment TEXT,
-        FOREIGN KEY (news_id) REFERENCES news(id)
-	);
-`);
 // DATABASE: TABLE — EXPERIENCES
 database.run(`
 	CREATE TABLE IF NOT EXISTS experiences (
@@ -139,24 +129,15 @@ app.get("/news", (request, response) => {
 
         if (error) {
             // INTERNAL ERROR: EXISTING ENTRIES COULDN'T BE RETRIEVED
-            errorMessagesInternal.push("INTERNAL SERVER ERROR. EXISTING ENTRIES COULDN'T BE RETRIEVED.");
+            errorMessagesInternal.push("EXISTING ENTRIES COULDN'T BE RETRIEVED.");
         }
 
-        if (errorMessagesInternal.length) {
-            // VIEW: INTERNAL ERROR
-            response.render("news", {
-                webTitle: "ERROR",
-                webStyle: "news.css",
-                errorMessagesInternal,
-            });
-        } else {
-            // VIEW: NO ERROR
-            response.render("news", {
-                webTitle: "News",
-                webStyle: "news.css",
-                news,
-            });
-        }
+        response.render("news", {
+            webTitle: "News",
+            webStyle: "news.css",
+            errorMessagesInternal,
+            news,
+        });
     });
 });
 
@@ -171,108 +152,16 @@ app.get("/news/:id", (request, response) => {
 
         if (error) {
             // INTERNAL ERROR: EXISTING ENTRY COULDN'T BE RETRIEVED
-            errorMessagesInternal.push("INTERNAL SERVER ERROR. EXISTING ENTRY COULDN'T BE RETRIEVED.");
+            errorMessagesInternal.push("EXISTING ENTRY COULDN'T BE RETRIEVED.");
         }
 
-        if (errorMessagesInternal.length) {
-            // VIEW: INTERNAL ERROR
-            response.render("news-entry", {
-                webTitle: "ERROR",
-                webStyle: "news-entry.css",
-                errorMessagesInternal,
-            });
-        } else {
-            // VIEW: NO ERROR
-            response.render("news-entry", {
-                webTitle: "News " + news.date,
-                webStyle: "news-entry.css",
-                news,
-            });
-        }
+        response.render("news-entry", {
+            webTitle: "News nr " + id,
+            webStyle: "news-entry.css",
+            errorMessagesInternal,
+            news,
+        });
     });
-});
-
-// NEWS – POST COMMENT
-app.post("/news/:id", (request, response) => {
-    const errorMessagesExternal = [];
-
-    const email = request.body.email;
-    const comment = request.body.comment;
-
-    // CHECK IF EXTERNAL ERROR
-    if (email == "") {
-        errorMessagesExternal.push("AN EMAIL CANNOT BE EMPTY.");
-    }
-    if (comment == "") {
-        errorMessagesExternal.push("A COMMENT CANNOT BE EMPTY.");
-    }
-    if (comment.length > 300) {
-        errorMessagesExternal.push("A COMMENT CANNOT BE MORE THAN 300 CHARACTERS.");
-    }
-    if (comment.length < 20) {
-        errorMessagesExternal.push("A COMMENT CANNOT BE LESS THAN 20 CHARACTERS.");
-    }
-
-    // IF NO EXTERNAL ERROR
-    if (errorMessagesExternal.length == 0) {
-        const query = `INSERT INTO comments (email, comment) VALUES (?, ?)`;
-        const values = [email, comment];
-
-        database.run(query, values, (error) => {
-            const errorMessagesInternal = [];
-
-            if (error) {
-                // INTERNAL ERROR: YOUR ENTRY COULDN'T BE PUBLISHED
-                errorMessagesInternal.push("INTERNAL SERVER ERROR. YOUR ENTRY COULDN'T BE SUBMITTED.");
-            }
-
-            const query = `SELECT * FROM comments`;
-
-            database.all(query, (error, comments) => {
-                if (error) {
-                    // INTERNAL ERROR: EXISTING ENTRIES COULDN'T BE RETRIEVED
-                    errorMessagesInternal.push("INTERNAL SERVER ERROR. EXISTING ENTRIES COULDN'T BE RETRIEVED.");
-                }
-
-                if (errorMessagesInternal.length) {
-                    // VIEW: INTERNAL ERROR
-                    response.render("news-entry", {
-                        webTitle: "ERR0R",
-                        webStyle: "news-entry.css",
-                        errorMessagesInternal,
-                    });
-                } else {
-                    // VIEW: NO ERROR
-                    response.render("news-entry", {
-                        webTitle: "News",
-                        webStyle: "news-entry.css",
-                        comments,
-                    });
-                }
-            });
-        });
-    } else {
-        const query = `SELECT * FROM comments`;
-        database.all(query, (error, comments) => {
-            const errorMessagesInternal = [];
-
-            if (error) {
-                // INTERNAL ERROR: EXISTING ENTRIES COULDN'T BE RETRIEVED
-                errorMessagesInternal.push("INTERNAL SERVER ERROR. EXISTING ENTRIES COULDN'T BE RETRIEVED.");
-            }
-
-            // VIEW: INTERNAL/EXTERNAL ERROR
-            response.render("news-entry", {
-                webTitle: "ERROR",
-                webStyle: "news-entry.css",
-                errorMessagesExternal,
-                errorMessagesInternal,
-                comments,
-                email,
-                comment,
-            });
-        });
-    }
 });
 
 // NEWS — POST
@@ -290,20 +179,16 @@ app.post("/news", (request, response) => {
     }
     if (title == "") {
         errorMessagesExternal.push("A TITLE CANNOT BE EMPTY.");
-    }
-    if (title.length < 10) {
+    } else if (title.length < 10) {
         errorMessagesExternal.push("A TITLE CANNOT BE LESS THAN 10 CHARACTERS.");
-    }
-    if (title.length > 100) {
+    } else if (title.length > 100) {
         errorMessagesExternal.push("A TITLE CANNOT BE MORE THAN 100 CHARACTERS.");
     }
     if (post == "") {
         errorMessagesExternal.push("A POST CANNOT BE EMPTY.");
-    }
-    if (post.length < 100) {
+    } else if (post.length < 100) {
         errorMessagesExternal.push("A POST CANNOT BE LESS THAN 100 CHARACTERS.");
-    }
-    if (post.length > 1000) {
+    } else if (post.length > 1000) {
         errorMessagesExternal.push("A TITLE CANNOT BE MORE THAN 1000 CHARACTERS.");
     }
 
@@ -317,7 +202,7 @@ app.post("/news", (request, response) => {
 
             if (error) {
                 // INTERNAL ERROR: YOUR ENTRY COULDN'T BE PUBLISHED
-                errorMessagesInternal.push("INTERNAL SERVER ERROR. YOUR ENTRY COULDN'T BE PUBLISHED.");
+                errorMessagesInternal.push("YOUR ENTRY COULDN'T BE PUBLISHED.");
             }
 
             const query = `SELECT * FROM news`;
@@ -325,22 +210,30 @@ app.post("/news", (request, response) => {
             database.all(query, (error, news) => {
                 if (error) {
                     // INTERNAL ERROR: EXISTING ENTRIES COULDN'T BE RETRIEVED
-                    errorMessagesInternal.push("INTERNAL SERVER ERROR. EXISTING ENTRIES COULDN'T BE RETRIEVED.");
+                    errorMessagesInternal.push("EXISTING ENTRIES COULDN'T BE RETRIEVED.");
                 }
 
-                if (errorMessagesInternal.length) {
-                    // VIEW: INTERNAL ERROR
+                if (errorMessagesInternal.length === 0) {
+                    // VIEW 1: RETRIEVED & PUBLISHED — REDIRECT
+                    response.redirect("/news");
+                } else if (errorMessagesInternal.length === 1 && errorMessagesInternal[0] === "EXISTING ENTRIES COULDN'T BE RETRIEVED.") {
+                    // VIEW 2: COULDN'T RETRIEVE & PUBLISHED
                     response.render("news", {
-                        webTitle: "ERR0R",
+                        webTitle: "News",
                         webStyle: "news.css",
                         errorMessagesInternal,
                     });
                 } else {
-                    // VIEW: NO ERROR
+                    // VIEW 3: COULDN'T RETRIEVE & COULDN'T PUBLISH
+                    // VIEW 4: RETRIEVED & COULDN'T PUBLISH
                     response.render("news", {
                         webTitle: "News",
                         webStyle: "news.css",
+                        errorMessagesInternal,
                         news,
+                        date,
+                        title,
+                        post,
                     });
                 }
             });
@@ -352,12 +245,11 @@ app.post("/news", (request, response) => {
 
             if (error) {
                 // INTERNAL ERROR: EXISTING ENTRIES COULDN'T BE RETRIEVED
-                errorMessagesInternal.push("INTERNAL SERVER ERROR. EXISTING ENTRIES COULDN'T BE RETRIEVED.");
+                errorMessagesInternal.push("EXISTING ENTRIES COULDN'T BE RETRIEVED.");
             }
 
-            // VIEW: INTERNAL/EXTERNAL ERROR
             response.render("news", {
-                webTitle: "ERROR",
+                webTitle: "News",
                 webStyle: "news.css",
                 errorMessagesExternal,
                 errorMessagesInternal,
@@ -381,22 +273,15 @@ app.get("/news/edit/:id", (request, response) => {
 
         if (error) {
             // INTERNAL ERROR: EDIT FORM COULDN'T BE RETRIEVED
-            errorMessagesInternal.push("INTERNAL SERVER ERROR. EDIT FORM COULDN'T BE RETRIEVED.");
-
-            // VIEW: INTERNAL ERROR
-            response.render("news-entry", {
-                webTitle: "ERROR",
-                webStyle: "news-entry.css",
-                errorMessagesInternal,
-            });
-        } else {
-            // VIEW: NO ERROR
-            response.render("content-edit", {
-                webTitle: "Edit News",
-                webStyle: "content-edit.css",
-                newsOne,
-            });
+            errorMessagesInternal.push("EDIT FORM COULDN'T BE RETRIEVED.");
         }
+
+        response.render("content-edit", {
+            webTitle: "Edit News",
+            webStyle: "content-edit.css",
+            errorMessagesInternal,
+            newsOne,
+        });
     });
 });
 
@@ -415,20 +300,16 @@ app.post("/news/edit/:id", (request, response) => {
     }
     if (newTitle == "") {
         errorMessagesExternal.push("NEW TITLE CANNOT BE EMPTY.");
-    }
-    if (newTitle.length < 10) {
+    } else if (newTitle.length < 10) {
         errorMessagesExternal.push("NEW TITLE CANNOT BE LESS THAN 10 CHARACTERS.");
-    }
-    if (newTitle.length > 100) {
+    } else if (newTitle.length > 100) {
         errorMessagesExternal.push("NEW TITLE CANNOT BE MORE THAN 100 CHARACTERS.");
     }
     if (newPost == "") {
         errorMessagesExternal.push("NEW POST CANNOT BE EMPTY.");
-    }
-    if (newPost.length < 100) {
+    } else if (newPost.length < 100) {
         errorMessagesExternal.push("NEW POST CANNOT BE LESS THAN 100 CHARACTERS.");
-    }
-    if (newPost.length > 1000) {
+    } else if (newPost.length > 1000) {
         errorMessagesExternal.push("NEW TITLE CANNOT BE MORE THAN 1000 CHARACTERS.");
     }
 
@@ -442,7 +323,7 @@ app.post("/news/edit/:id", (request, response) => {
 
             if (error) {
                 // INTERNAL ERROR: YOUR ENTRY COULDN'T BE UPDATED
-                errorMessagesInternal.push("INTERNAL SERVER ERROR. YOUR ENTRY COULDN'T BE UPDATED.");
+                errorMessagesInternal.push("YOUR ENTRY COULDN'T BE UPDATED.");
 
                 // VIEW: INTERNAL ERROR
                 response.render("content-edit", {
@@ -465,12 +346,11 @@ app.post("/news/edit/:id", (request, response) => {
 
             if (error) {
                 // INTERNAL ERROR: YOUR ENTRY COULDN'T BE UPDATED
-                errorMessagesInternal.push("INTERNAL SERVER ERROR. YOUR ENTRY COULDN'T BE UPDATED.");
+                errorMessagesInternal.push("YOUR ENTRY COULDN'T BE UPDATED.");
             }
 
-            // VIEW: INTERNAL/EXTERNAL ERROR
             response.render("content-edit", {
-                webTitle: "ERROR",
+                webTitle: "Edit News",
                 webStyle: "content-edit.css",
                 errorMessagesExternal,
                 errorMessagesInternal,
@@ -491,7 +371,7 @@ app.post("/news/delete/:id", (request, response) => {
 
         if (error) {
             // INTERNAL ERROR: YOUR ENTRY COULDN'T BE DELETED
-            errorMessagesInternal.push("INTERNAL SERVER ERROR. YOUR ENTRY COULDN'T BE DELETED.");
+            errorMessagesInternal.push("YOUR ENTRY COULDN'T BE DELETED.");
 
             // VIEW: INTERNAL ERROR
             response.render("news-entry", {
@@ -506,7 +386,7 @@ app.post("/news/delete/:id", (request, response) => {
 
                 if (error) {
                     // DATABASE ERROR: TABLE'S AUTOINCREMENT COULDN'T BE RESET
-                    errorMessagesDatabase.push("INTERNAL SERVER ERROR. TABLE'S AUTOINCREMENT COULDN'T BE RESET.");
+                    errorMessagesDatabase.push("TABLE'S AUTOINCREMENT COULDN'T BE RESET.");
                 }
 
                 // VIEW: NO ERROR — REDIRECT
@@ -524,24 +404,15 @@ app.get("/experiences", (request, response) => {
 
         if (error) {
             // INTERNAL ERROR: EXISTING ENTRIES COULDN'T BE RETRIEVED
-            errorMessagesInternal.push("INTERNAL SERVER ERROR. EXISTING ENTRIES COULDN'T BE RETRIEVED");
+            errorMessagesInternal.push("EXISTING ENTRIES COULDN'T BE RETRIEVED");
         }
 
-        if (errorMessagesInternal.length) {
-            // VIEW: INTERNAL ERROR
-            response.render("experiences", {
-                webTitle: "ERROR",
-                webStyle: "experiences.css",
-                errorMessagesInternal,
-            });
-        } else {
-            // VIEW: NO ERROR
-            response.render("experiences", {
-                webTitle: "Experiences",
-                webStyle: "experiences.css",
-                experiences,
-            });
-        }
+        response.render("experiences", {
+            webTitle: "Experiences",
+            webStyle: "experiences.css",
+            errorMessagesInternal,
+            experiences,
+        });
     });
 });
 
@@ -556,24 +427,15 @@ app.get("/experiences/:id", (request, response) => {
 
         if (error) {
             // INTERNAL ERROR: EXISTING ENTRY COULDN'T BE RETRIEVED
-            errorMessagesInternal.push("INTERNAL SERVER ERROR. EXISTING ENTRY COULDN'T BE RETRIEVED.");
+            errorMessagesInternal.push("EXISTING ENTRY COULDN'T BE RETRIEVED.");
         }
 
-        if (errorMessagesInternal.length) {
-            // VIEW: INTERNAL ERROR
-            response.render("experiences-entry", {
-                webTitle: "ERROR",
-                webStyle: "experiences-entry.css",
-                errorMessagesInternal,
-            });
-        } else {
-            // VIEW: NO ERROR
-            response.render("experiences-entry", {
-                webTitle: "Experiences " + id,
-                webStyle: "experiences-entry.css",
-                experiences,
-            });
-        }
+        response.render("experiences-entry", {
+            webTitle: "Experience nr " + id,
+            webStyle: "experiences-entry.css",
+            errorMessagesInternal,
+            experiences,
+        });
     });
 });
 
@@ -589,8 +451,7 @@ app.post("/experiences", (request, response) => {
     // CHECK IF EXTERNAL ERROR
     if (name == "") {
         errorMessagesExternal.push("A NAME CANNOT BE EMPTY.");
-    }
-    if (name.length > 20) {
+    } else if (name.length > 20) {
         errorMessagesExternal.push("A NAME CANNOT BE MORE THAN 20 CHARACTERS.");
     }
     if (email == "") {
@@ -601,11 +462,9 @@ app.post("/experiences", (request, response) => {
     }
     if (experience == "") {
         errorMessagesExternal.push("AN EXPERIENCE CANNOT BE EMPTY.");
-    }
-    if (experience.length > 1000) {
+    } else if (experience.length > 1000) {
         errorMessagesExternal.push("AN EXPERIENCE CANNOT BE MORE THAN 1000 CHARACTERS.");
-    }
-    if (experience.length < 20) {
+    } else if (experience.length < 20) {
         errorMessagesExternal.push("AN EXPERIENCE CANNOT BE LESS THAN 20 CHARACTERS.");
     }
 
@@ -619,7 +478,7 @@ app.post("/experiences", (request, response) => {
 
             if (error) {
                 // INTERNAL ERROR: YOUR ENTRY COULDN'T BE SHARED
-                errorMessagesInternal.push("INTERNAL SERVER ERROR. YOUR ENTRY COULDN'T BE SHARED.");
+                errorMessagesInternal.push("YOUR ENTRY COULDN'T BE SHARED.");
             }
 
             const query = `SELECT * FROM experiences`;
@@ -627,22 +486,31 @@ app.post("/experiences", (request, response) => {
             database.all(query, (error, experiences) => {
                 if (error) {
                     // INTERNAL ERROR: EXISTING ENTRIES COULDN'T BE RETRIEVED
-                    errorMessagesInternal.push("INTERNAL SERVER ERROR. EXISTING ENTRIES COULDN'T BE RETRIEVED.");
+                    errorMessagesInternal.push("EXISTING ENTRIES COULDN'T BE RETRIEVED.");
                 }
 
-                if (errorMessagesInternal.length) {
-                    // VIEW: INTERNAL ERROR
+                if (errorMessagesInternal.length === 0) {
+                    // VIEW 1: RETRIEVED & SHARED — REDIRECT
+                    response.redirect("/experiences");
+                } else if (errorMessagesInternal.length === 1 && errorMessagesInternal[0] === "EXISTING ENTRIES COULDN'T BE RETRIEVED.") {
+                    // VIEW 2: COULDN'T RETRIEVE & SHARED
                     response.render("experiences", {
-                        webTitle: "ERR0R",
+                        webTitle: "Experiences",
                         webStyle: "experiences.css",
                         errorMessagesInternal,
                     });
                 } else {
-                    // VIEW: NO ERROR
+                    // VIEW 3: COULDN'T RETRIEVE & COULDN'T SHARE
+                    // VIEW 4: RETRIEVED & COULDN'T SHARE
                     response.render("experiences", {
                         webTitle: "Experiences",
                         webStyle: "experiences.css",
+                        errorMessagesInternal,
                         experiences,
+                        name,
+                        email,
+                        link,
+                        experience,
                     });
                 }
             });
@@ -654,12 +522,11 @@ app.post("/experiences", (request, response) => {
 
             if (error) {
                 // INTERNAL ERROR: EXISTING ENTRIES COULDN'T BE RETRIEVED
-                errorMessagesInternal.push("INTERNAL SERVER ERROR. EXISTING ENTRIES COULDN'T BE RETRIEVED.");
+                errorMessagesInternal.push("EXISTING ENTRIES COULDN'T BE RETRIEVED.");
             }
 
-            // VIEW: INTERNAL/EXTERNAL ERROR
             response.render("experiences", {
-                webTitle: "ERROR",
+                webTitle: "Experiences",
                 webStyle: "experiences.css",
                 errorMessagesExternal,
                 errorMessagesInternal,
@@ -673,6 +540,138 @@ app.post("/experiences", (request, response) => {
     }
 });
 
+// EXPERIENCES — EDIT
+app.get("/experiences/edit/:id", (request, response) => {
+    const id = request.params.id;
+    const query = `SELECT * FROM experiences WHERE id = ?`;
+    const values = [id];
+
+    database.get(query, values, (error, experiencesOne) => {
+        const errorMessagesInternal = [];
+
+        if (error) {
+            // INTERNAL ERROR: CONTACT FORM COULDN'T BE RETRIEVED
+            errorMessagesInternal.push("CONTACT FORM COULDN'T BE RETRIEVED.");
+        }
+
+        response.render("content-edit.hbs", {
+            webTitle: "Edit Experience",
+            webStyle: "content-edit.css",
+            errorMessagesInternal,
+            experiencesOne,
+        });
+    });
+});
+
+// CONTACT — POST EDITED
+app.post("/experiences/edit/:id", (request, response) => {
+    const errorMessagesExternal = [];
+
+    const id = request.params.id;
+    const newName = request.body.name;
+    const newLink = request.body.link;
+    const newExperience = request.body.experience;
+
+    // CHECK IF EXTERNAL ERROR
+    if (newName == "") {
+        errorMessagesExternal.push("NEW NAME CANNOT BE EMPTY.");
+    } else if (newName.length > 20) {
+        errorMessagesExternal.push("NEW NAME CANNOT BE MORE THAN 20 CHARACTERS.");
+    }
+    if (newLink == "") {
+        errorMessagesExternal.push("NEW LINK CANNOT BE EMPTY.");
+    }
+    if (newExperience == "") {
+        errorMessagesExternal.push("NEW EXPERIENCE CANNOT BE EMPTY.");
+    } else if (newExperience.length > 1000) {
+        errorMessagesExternal.push("NEW EXPERIENCE CANNOT BE MORE THAN 1000 CHARACTERS.");
+    } else if (newExperience.length < 20) {
+        errorMessagesExternal.push("NEW EXPERIENCE CANNOT BE LESS THAN 20 CHARACTERS.");
+    }
+
+    // IF NO EXTERNAL ERROR
+    if (errorMessagesExternal.length == 0) {
+        const query = `UPDATE experiences SET name = ?, link = ?, experience = ? WHERE id = ?`;
+        const values = [newName, newLink, newExperience, id];
+
+        database.run(query, values, (error) => {
+            const errorMessagesInternal = [];
+
+            if (error) {
+                // INTERNAL ERROR: YOUR ENTRY COULDN'T BE UPDATED
+                errorMessagesInternal.push("YOUR ENTRY COULDN'T BE UPDATED.");
+
+                // VIEW: INTERNAL ERROR
+                response.render("content-edit", {
+                    webTitle: "ERROR",
+                    webStyle: "content-edit.css",
+                    errorMessagesInternal,
+                });
+            } else {
+                // VIEW: NO ERROR — REDIRECT
+                response.redirect("/experiences/" + id);
+            }
+        });
+    } else {
+        const id = request.params.id;
+        const query = `SELECT * FROM experiences WHERE id = ?`;
+        const values = [id];
+
+        database.get(query, values, (error, experiencesOne) => {
+            const errorMessagesInternal = [];
+
+            if (error) {
+                // INTERNAL ERROR: YOUR ENTRY COULDN'T BE UPDATED
+                errorMessagesInternal.push("YOUR ENTRY COULDN'T BE UPDATED.");
+            }
+
+            response.render("content-edit.hbs", {
+                webTitle: "Edit Experience",
+                webStyle: "content-edit.css",
+                errorMessagesExternal,
+                errorMessagesInternal,
+                experiencesOne,
+            });
+        });
+    }
+});
+
+// EXPERIENCES — DELETE
+app.post("/experiences/delete/:id", (request, response) => {
+    const id = request.params.id;
+    const query = "DELETE FROM experiences WHERE id = ?";
+    const values = [id];
+
+    database.run(query, values, (error) => {
+        const errorMessagesInternal = [];
+
+        if (error) {
+            // INTERNAL ERROR: YOUR ENTRY COULDN'T BE DELETED
+            errorMessagesInternal.push("YOUR ENTRY COULDN'T BE DELETED.");
+
+            // VIEW: INTERNAL ERROR
+            response.render("experiences-entry", {
+                webTitle: "ERROR",
+                webStyle: "experiences-entry.css",
+                errorMessagesInternal,
+            });
+        } else {
+            const query = `UPDATE sqlite_sequence SET seq = 0 WHERE name = "news"`;
+            database.run(query, (error) => {
+                const errorMessagesDatabase = [];
+
+                if (error) {
+                    // DATABASE ERROR: TABLE'S AUTOINCREMENT COULDN'T BE RESET
+                    errorMessagesDatabase.push("TABLE'S AUTOINCREMENT COULDN'T BE RESET.");
+                }
+
+                // VIEW: NO ERROR — REDIRECT
+                response.redirect("/experiences");
+            });
+        }
+    });
+});
+
 // CONTACT — GET
 app.get("/contact", (request, response) => {
     const query = `SELECT * FROM contact`;
@@ -681,24 +680,15 @@ app.get("/contact", (request, response) => {
 
         if (error) {
             // INTERNAL ERROR: EXISTING ENTRIES COULDN'T BE RETRIEVED
-            errorMessagesInternal.push("INTERNAL SERVER ERROR. EXISTING ENTRIES COULDN'T BE RETRIEVED");
+            errorMessagesInternal.push("EXISTING ENTRIES COULDN'T BE RETRIEVED");
         }
 
-        if (errorMessagesInternal.length) {
-            // VIEW: INTERNAL ERROR
-            response.render("contact", {
-                webTitle: "ERROR",
-                webStyle: "contact.css",
-                errorMessagesInternal,
-            });
-        } else {
-            // VIEW: NO ERROR
-            response.render("contact", {
-                webTitle: "Contact",
-                webStyle: "contact.css",
-                contact,
-            });
-        }
+        response.render("contact", {
+            webTitle: "Contact",
+            webStyle: "contact.css",
+            errorMessagesInternal,
+            contact,
+        });
     });
 });
 
@@ -713,24 +703,15 @@ app.get("/contact/:id", (request, response) => {
 
         if (error) {
             // INTERNAL ERROR: EXISTING ENTRY COULDN'T BE RETRIEVED
-            errorMessagesInternal.push("INTERNAL SERVER ERROR. EXISTING ENTRY COULDN'T BE RETRIEVED.");
+            errorMessagesInternal.push("EXISTING ENTRY COULDN'T BE RETRIEVED.");
         }
 
-        if (errorMessagesInternal.length) {
-            // VIEW: INTERNAL ERROR
-            response.render("contact-entry", {
-                webTitle: "ERROR",
-                webStyle: "contact-entry.css",
-                errorMessagesInternal,
-            });
-        } else {
-            // VIEW: NO ERROR
-            response.render("contact-entry", {
-                webTitle: "FAQ " + id,
-                webStyle: "contact-entry.css",
-                contact,
-            });
-        }
+        response.render("contact-entry", {
+            webTitle: "FAQ nr " + id,
+            webStyle: "contact-entry.css",
+            errorMessagesInternal,
+            contact,
+        });
     });
 });
 
@@ -747,11 +728,9 @@ app.post("/contact", (request, response) => {
     }
     if (message == "") {
         errorMessagesExternal.push("A MESSAGE CANNOT BE EMPTY.");
-    }
-    if (message.length > 300) {
+    } else if (message.length > 300) {
         errorMessagesExternal.push("A MESSAGE CANNOT BE MORE THAN 300 CHARACTERS.");
-    }
-    if (message.length < 20) {
+    } else if (message.length < 20) {
         errorMessagesExternal.push("A MESSAGE CANNOT BE LESS THAN 20 CHARACTERS.");
     }
 
@@ -765,7 +744,7 @@ app.post("/contact", (request, response) => {
 
             if (error) {
                 // INTERNAL ERROR: YOUR ENTRY COULDN'T BE PUBLISHED
-                errorMessagesInternal.push("INTERNAL SERVER ERROR. YOUR ENTRY COULDN'T BE SUBMITTED.");
+                errorMessagesInternal.push("YOUR ENTRY COULDN'T BE SUBMITTED.");
             }
 
             const query = `SELECT * FROM contact`;
@@ -773,22 +752,29 @@ app.post("/contact", (request, response) => {
             database.all(query, (error, contact) => {
                 if (error) {
                     // INTERNAL ERROR: EXISTING ENTRIES COULDN'T BE RETRIEVED
-                    errorMessagesInternal.push("INTERNAL SERVER ERROR. EXISTING ENTRIES COULDN'T BE RETRIEVED.");
+                    errorMessagesInternal.push("EXISTING ENTRIES COULDN'T BE RETRIEVED.");
                 }
 
-                if (errorMessagesInternal.length) {
-                    // VIEW: INTERNAL ERROR
+                if (errorMessagesInternal.length === 0) {
+                    // VIEW 1: RETRIEVED & SUBMITTED — REDIRECT
+                    response.redirect("/contact");
+                } else if (errorMessagesInternal.length === 1 && errorMessagesInternal[0] === "EXISTING ENTRIES COULDN'T BE RETRIEVED.") {
+                    // VIEW 2: COULDN'T RETRIEVE & SUBMITTED
                     response.render("contact", {
-                        webTitle: "ERR0R",
+                        webTitle: "Contact",
                         webStyle: "contact.css",
                         errorMessagesInternal,
                     });
                 } else {
-                    // VIEW: NO ERROR
+                    // VIEW 3: COULDN'T RETRIEVE & COULDN'T SUBMIT
+                    // VIEW 4: RETRIEVED & COULDN'T SUBMIT
                     response.render("contact", {
                         webTitle: "Contact",
                         webStyle: "contact.css",
+                        errorMessagesInternal,
                         contact,
+                        email,
+                        message,
                     });
                 }
             });
@@ -800,12 +786,11 @@ app.post("/contact", (request, response) => {
 
             if (error) {
                 // INTERNAL ERROR: EXISTING ENTRIES COULDN'T BE RETRIEVED
-                errorMessagesInternal.push("INTERNAL SERVER ERROR. EXISTING ENTRIES COULDN'T BE RETRIEVED.");
+                errorMessagesInternal.push("EXISTING ENTRIES COULDN'T BE RETRIEVED.");
             }
 
-            // VIEW: INTERNAL/EXTERNAL ERROR
             response.render("contact", {
-                webTitle: "ERROR",
+                webTitle: "Contact",
                 webStyle: "contact.css",
                 errorMessagesExternal,
                 errorMessagesInternal,
@@ -828,22 +813,15 @@ app.get("/contact/edit/:id", (request, response) => {
 
         if (error) {
             // INTERNAL ERROR: CONTACT FORM COULDN'T BE RETRIEVED
-            errorMessagesInternal.push("INTERNAL SERVER ERROR. CONTACT FORM COULDN'T BE RETRIEVED.");
-
-            // VIEW: INTERNAL ERROR
-            response.render("content-edit.hbs", {
-                webTitle: "ERROR",
-                webStyle: "content-edit.css",
-                errorMessagesInternal,
-            });
-        } else {
-            // VIEW: NO ERROR
-            response.render("content-edit.hbs", {
-                webTitle: "Edit Contact",
-                webStyle: "content-edit.css",
-                contactOne,
-            });
+            errorMessagesInternal.push("CONTACT FORM COULDN'T BE RETRIEVED.");
         }
+
+        response.render("content-edit.hbs", {
+            webTitle: "Edit Contact",
+            webStyle: "content-edit.css",
+            errorMessagesInternal,
+            contactOne,
+        });
     });
 });
 
@@ -858,20 +836,16 @@ app.post("/contact/edit/:id", (request, response) => {
     // CHECK IF EXTERNAL ERROR
     if (newMessage == "") {
         errorMessagesExternal.push("NEW MESSAGE CANNOT BE EMPTY.");
-    }
-    if (newMessage.length > 300) {
+    } else if (newMessage.length > 300) {
         errorMessagesExternal.push("NEW MESSAGE CANNOT BE MORE THAN 300 CHARACTERS.");
-    }
-    if (newMessage.length < 20) {
+    } else if (newMessage.length < 20) {
         errorMessagesExternal.push("NEW MESSAGE CANNOT BE LESS THAN 20 CHARACTERS.");
     }
     if (newResponse == "") {
         errorMessagesExternal.push("NEW RESPONSE CANNOT BE EMPTY.");
-    }
-    if (newResponse.length > 1000) {
+    } else if (newResponse.length > 1000) {
         errorMessagesExternal.push("NEW RESPONSE CANNOT BE MORE THAN 1000 CHARACTERS.");
-    }
-    if (newResponse.length < 20) {
+    } else if (newResponse.length < 20) {
         errorMessagesExternal.push("NEW RESPONSE CANNOT BE LESS THAN 20 CHARACTERS.");
     }
 
@@ -885,7 +859,7 @@ app.post("/contact/edit/:id", (request, response) => {
 
             if (error) {
                 // INTERNAL ERROR: YOUR ENTRY COULDN'T BE UPDATED
-                errorMessagesInternal.push("INTERNAL SERVER ERROR. YOUR ENTRY COULDN'T BE UPDATED.");
+                errorMessagesInternal.push("YOUR ENTRY COULDN'T BE UPDATED.");
 
                 // VIEW: INTERNAL ERROR
                 response.render("content-edit", {
@@ -908,12 +882,11 @@ app.post("/contact/edit/:id", (request, response) => {
 
             if (error) {
                 // INTERNAL ERROR: YOUR ENTRY COULDN'T BE UPDATED
-                errorMessagesInternal.push("INTERNAL SERVER ERROR. YOUR ENTRY COULDN'T BE UPDATED.");
+                errorMessagesInternal.push("YOUR ENTRY COULDN'T BE UPDATED.");
             }
 
-            // VIEW: INTERNAL/EXTERNAL ERROR
             response.render("content-edit.hbs", {
-                webTitle: "ERROR",
+                webTitle: "Edit News",
                 webStyle: "content-edit.css",
                 errorMessagesExternal,
                 errorMessagesInternal,
@@ -934,7 +907,7 @@ app.post("/contact/delete/:id", (request, response) => {
 
         if (error) {
             // INTERNAL ERROR: YOUR ENTRY COULDN'T BE DELETED
-            errorMessagesInternal.push("INTERNAL SERVER ERROR. YOUR ENTRY COULDN'T BE DELETED.");
+            errorMessagesInternal.push("YOUR ENTRY COULDN'T BE DELETED.");
 
             // VIEW: INTERNAL ERROR
             response.render("contact-entry", {
@@ -949,7 +922,7 @@ app.post("/contact/delete/:id", (request, response) => {
 
                 if (error) {
                     // DATABASE ERROR: TABLE'S AUTOINCREMENT COULDN'T BE RESET
-                    errorMessagesDatabase.push("INTERNAL SERVER ERROR. TABLE'S AUTOINCREMENT COULDN'T BE RESET.");
+                    errorMessagesDatabase.push("TABLE'S AUTOINCREMENT COULDN'T BE RESET.");
                 }
 
                 // VIEW: NO ERROR — REDIRECT
