@@ -1,8 +1,12 @@
+/* BODY */
+body {
+    background-color: var(--color-01);
+}
+
 /* SECTION 2: FAQ NUMBER */
 .gridSection02 {
     grid-column-start: 1;
     grid-column-end: 7;
-    background-color: var(--color-03);
     padding: 3vw 1vw 0 7vw;
 }
 .gridSection02 h1 {
@@ -15,7 +19,6 @@
 .gridSection03 {
     grid-column-start: 7;
     grid-column-end: 13;
-    background-color: var(--color-03);
     padding: 6vw 7vw 0 1vw;
 }
 .gridPackage03 {
@@ -23,6 +26,27 @@
 }
 .gridPackage03 h2 {
     font-family: "Poppins", sans-serif;
+    color: var(--color-03);
+}
+.gridPackage03 p {
+    color: var(--color-03);
+}
+
+/* SECTION 4: ENTRY NOT FOUND */
+.gridSection04 {
+    grid-column-start: 1;
+    grid-column-end: 13;
+    padding: 5vw 7vw 0 7vw;
+}
+.gridSection04 h2 {
+    text-align: center;
+    color: var(--color-05);
+}
+
+/* FOOTER */
+footer {
+    background-color: var(--color-01);
+    color: var(--color-03);
 }
 
 /* RESPONSIVE — TABLET */

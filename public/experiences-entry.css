@@ -31,6 +31,17 @@ body {
     margin-bottom: 1vw;
 }
 
+/* SECTION 3: ENTRY NOT FOUND */
+.gridSection03 {
+    grid-column-start: 1;
+    grid-column-end: 13;
+    padding: 5vw 7vw 0 7vw;
+}
+.gridSection03 h2 {
+    text-align: center;
+    color: var(--color-05);
+}
+
 /* FOOTER */
 footer {
     background-color: var(--color-01);

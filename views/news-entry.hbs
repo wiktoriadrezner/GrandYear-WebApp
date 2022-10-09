@@ -19,16 +19,21 @@
             <h1>{{news.title}}</h1>
             {{!-- <img class="newsImage" src="{{image}}" /> --}}
             <p>{{news.post}}</p>
-            {{!-- {{#if session.isLoggedIn}} --}}
-            <div class="buttonPackage">
-                <a class="buttonLink" href="/news/edit/{{news.id}}">
-                    <button class="btn btnEdit">Edit</button>
-                </a>
-                <form class="formButton" action="/news/delete/{{news.id}}" method="POST">
-                    <button class="btn btnDelete" type="submit">Delete</button>
-                </form>
-            </div>
-            {{!-- {{/if}} --}}
+            {{#if session.isLoggedIn}}
+                <div class="buttonPackage">
+                    <a class="buttonLink" href="/news/edit/{{news.id}}">
+                        <button class="btn btnEdit">Edit</button>
+                    </a>
+                    <form class="formButton" action="/news/delete/{{news.id}}" method="POST">
+                        <button class="btn btnDelete" type="submit">Delete</button>
+                    </form>
+                </div>
+            {{/if}}
+        </div>
+    {{else}}
+        <!-- SECTION 3: ENTRY NOT FOUND -->
+        <div class="gridSection03">
+            <h2>Ooopsie! This entry was NOT FOUND!</h2>
         </div>
     {{/if}}
 </div>

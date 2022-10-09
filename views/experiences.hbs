@@ -66,7 +66,7 @@
                     <h2>
                         <a href="/experiences/{{id}}">{{name}}</a>
                     </h2>
-                    <a href="{{link}}"> CONNECT </a>
+                    <a href="https://www.linkedin.com/in/{{username}}"> CONNECT </a>
                     <p>{{experience}}</p>
                 </div>
             {{/each}}
@@ -76,14 +76,14 @@
     <div class="gridSection06">
         <h2>Share Your Experience</h2>
         <p>
-            You are more than welcome to share Your story with us. Feel free to connect with other Inspiring Humans by sharing Your social media accounts or
-            linking your social media page. Tell us about all the inspiring things you have done and experienced.
+            You are more than welcome to share Your story with us. Feel free to connect with other Inspiring Humans by sharing Your LinkedIn username. Tell us
+            about all the inspiring things you have done and experienced.
         </p>
         <h2>Meet the Ambassadors</h2>
         <p>
             The Ambassadors are people who are part of Grand Year's actions and support our message. They have similar yet unique backgrounds and are willing to
-            share their knowledge. Feel free to reach out to them, leave them a message or connect on their SM channels. They are there to listen to Your story
-            and help You if needed.
+            share their knowledge. Feel free to reach out to them, leave them a message or connect via their LinkedIn profiles. They are there to listen to Your
+            story and help You if needed.
         </p>
     </div>
     <!-- SECTION 7: FORM — SHARE YOUR STORY -->
@@ -107,8 +107,9 @@
                 <p>Your Email will not be disclosed. We will only use it to contact You if needed.</p>
             </div>
             <div class="formPackage">
-                <label class="form-label">Link</label>
-                <input class="form-input" type="url" name="link" placeholder="Share Your Link" value="{{link}}" />
+                <label class="form-label">Username</label>
+                <input class="form-input" type="text" name="username" placeholder="Share Your LinkedIn Username" value="{{username}}" />
+                <p>Your LinkedIn username can be found at the end of the URL.</p>
             </div>
             <div class="formPackage">
                 <label class="form-label">Experience</label>

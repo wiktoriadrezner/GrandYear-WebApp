@@ -1,3 +1,8 @@
+/* UPPER NAVIGATION */
+.navigationLogged {
+    color: var(--color-05);
+}
+
 /* BODY */
 body {
     background-color: var(--color-01);
@@ -12,11 +17,32 @@ body {
     color: var(--color-05);
     padding: 0;
 }
+.errorMessageHeader {
+    padding-top: 2vw;
+}
 
-/* SECTION 2: LOGIN */
+/* SECTION 2: LOG IN */
 .gridSection02 {
     grid-column-start: 5;
     grid-column-end: 9;
+}
+
+/* SECTION 3: LOG OUT */
+.gridSection03 {
+    grid-column-start: 4;
+    grid-column-end: 10;
+}
+.gridSection03 h2 {
+    padding: 2vw 0 1vw 0;
+    font-size: 2vw;
+    text-align: center;
+    color: var(--color-03);
+}
+.gridSection03 div {
+    text-align: center;
+}
+.gridSection03 button {
+    float: none;
 }
 
 /* FOOTER */
@@ -31,14 +57,25 @@ footer {
         grid-column-start: 4;
         grid-column-end: 10;
     }
+    .gridSection03 {
+        grid-column-start: 3;
+        grid-column-end: 11;
+    }
+    .gridSection03 h2 {
+        font-size: 3vw;
+    }
 }
 
 /* RESPONSIVE — MOBILE */
 @media (max-width: 500px) {
-    .gridSection02 {
+    .gridSection02,
+    .gridSection03 {
         grid-column-start: 1;
         grid-column-end: 13;
         padding: 0 7vw 0 7vw;
+    }
+    .gridSection03 h2 {
+        font-size: 4vw;
     }
     .btnSubmit {
         width: 25vw;

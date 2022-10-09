@@ -1,20 +1,44 @@
 <div class="gridContainer">
     <!-- SECTION 1: HEADER -->
     <div class="gridSection01">
-        <h1>Admin</h1>
+        {{#unless session.isLoggedIn}}
+            <h1>Log In</h1>
+            {{#if errorMessagesExternal.length}}
+                <p class="errorMessageHeader">! ERROR !</p>
+                <p class="errorMessage">
+                    {{#each errorMessagesExternal}}
+                        <span>{{this}}</span>
+                    {{/each}}
+                </p>
+            {{/if}}
+        {{else}}
+            <h1>Log Out</h1>
+        {{/unless}}
     </div>
-    <!-- SECTION 2: LOGIN -->
-    <div class="gridSection02">
-        <form action="/admin" method="post" class="formGroup">
-            <div class="formPackage">
-                <label class="form-label">Username</label>
-                <input class="form-input" type="text" name="username" placeholder="Username" />
-            </div>
-            <div class="formPackage">
-                <label class="form-label">Password</label>
-                <input class="form-input" type="password" name="password" placeholder="Password" />
-            </div>
-            <button class="btn btnSubmit" type="submit">Log In</button>
-        </form>
-    </div>
+    {{#unless session.isLoggedIn}}
+        <!-- SECTION 2: LOG IN -->
+        <div class="gridSection02">
+            <form action="/admin/login" method="post" class="formGroup">
+                <div class="formPackage">
+                    <label class="form-label">Username</label>
+                    <input class="form-input" type="text" name="username" placeholder="Username" />
+                </div>
+                <div class="formPackage">
+                    <label class="form-label">Password</label>
+                    <input class="form-input" type="password" name="password" placeholder="Password" />
+                </div>
+                <button class="btn btnSubmit" type="submit">Log In</button>
+            </form>
+        </div>
+    {{else}}
+        <!-- SECTION 3: LOG OUT -->
+        <div class="gridSection03">
+            <h2>You're currently logged in. Click to log out.</h2>
+            <form action="/admin/logout" method="post" class="formGroup">
+                <div>
+                    <button class="btn btnSubmit" type="submit">Log Out</button>
+                </div>
+            </form>
+        </div>
+    {{/unless}}
 </div>

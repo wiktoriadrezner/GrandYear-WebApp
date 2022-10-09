@@ -27,16 +27,21 @@
                 <h2>ANSWER</h2>
                 <p>{{contact.response}}</p>
             </div>
-            {{!-- {{#if session.isLoggedIn}} --}}
-            <div class="buttonPackage">
-                <a class="buttonLink" href="/contact/edit/{{contact.id}}">
-                    <button class="btn btnEdit">Edit</button>
-                </a>
-                <form class="formButton" action="/contact/delete/{{contact.id}}" method="POST">
-                    <button type="submit" class="btn btnDelete">Delete</button>
-                </form>
-            </div>
-            {{!-- {{/if}} --}}
+            {{#if session.isLoggedIn}}
+                <div class="buttonPackage">
+                    <a class="buttonLink" href="/contact/edit/{{contact.id}}">
+                        <button class="btn btnEdit">Edit</button>
+                    </a>
+                    <form class="formButton" action="/contact/delete/{{contact.id}}" method="POST">
+                        <button type="submit" class="btn btnDelete">Delete</button>
+                    </form>
+                </div>
+            {{/if}}
+        </div>
+    {{else}}
+        <!-- SECTION 4: ENTRY NOT FOUND -->
+        <div class="gridSection04">
+            <h2>Ooopsie! This entry was NOT FOUND!</h2>
         </div>
     {{/if}}
 </div>

@@ -25,7 +25,7 @@ database.run(`
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
         email TEXT,
-        link TEXT,
+        username TEXT,
         experience TEXT
 	);
 `);
@@ -88,21 +88,32 @@ app.get("/admin", (request, response) => {
 });
 
 // ADMIN — LOG IN
-app.post("/admin", (request, response) => {
-    const username = request.body.username;
-    const password = request.body.password;
+app.post("/admin/login", (request, response) => {
+    const errorMessagesExternal = [];
 
-    if (username == adminUsername && password == adminPassword) {
+    const enteredUsername = request.body.username;
+    const enteredPassword = request.body.password;
+
+    if (enteredUsername == adminUsername && enteredPassword == adminPassword) {
         // SESSION IF LOGGED IN
         request.session.isLoggedIn = true;
         response.redirect("/");
     } else {
+        errorMessagesExternal.push("YOU COULDN'T LOG IN. THE USERNAME/PASSWORD IS INCORRECT.");
         response.render("admin", {
             failedToLogin: true,
             webTitle: "Admin",
             webStyle: "admin.css",
+            errorMessagesExternal,
         });
     }
+});
+
+// ADMIN — LOG OUT
+app.post("/admin/logout", (request, response) => {
+    // SESSION IF LOGGED OUT
+    request.session.isLoggedIn = false;
+    response.redirect("/admin");
 });
 
 // MISSION — GET
@@ -276,12 +287,16 @@ app.get("/news/edit/:id", (request, response) => {
             errorMessagesInternal.push("EDIT FORM COULDN'T BE RETRIEVED.");
         }
 
-        response.render("content-edit", {
-            webTitle: "Edit News",
-            webStyle: "content-edit.css",
-            errorMessagesInternal,
-            newsOne,
-        });
+        if (request.session.isLoggedIn) {
+            response.render("content-edit", {
+                webTitle: "Edit News",
+                webStyle: "content-edit.css",
+                errorMessagesInternal,
+                newsOne,
+            });
+        } else {
+            response.redirect("/admin");
+        }
     });
 });
 
@@ -444,9 +459,14 @@ app.post("/experiences", (request, response) => {
     const errorMessagesExternal = [];
 
     const name = request.body.name;
-    const email = request.body.email;
-    const link = request.body.link;
+    const username = request.body.username;
     const experience = request.body.experience;
+    const email = request.body.email;
+    const locationOfAt = email.indexOf("@");
+    const frequencyOfAt = email.split("@").length - 1;
+
+    // CHECK IF EXTERNAL ERROR
+    // The e-mail validation and constraints (if-statements) have been taken from the following website: https://insidethediv.com/email-validation-on-javascript. The following solution has been introduced to increase the security on the server side. I am not the owner of the following solution and, therefore, own no copyrights — Wiktoria Drezner, 07/10/2022
 
     // CHECK IF EXTERNAL ERROR
     if (name == "") {
@@ -456,9 +476,21 @@ app.post("/experiences", (request, response) => {
     }
     if (email == "") {
         errorMessagesExternal.push("AN EMAIL CANNOT BE EMPTY.");
+    } else if (email.length > 254) {
+        errorMessagesExternal.push("AN EMAIL CANNOT BE MORE THAN 254 CHARACTERS.");
+    } else if (email.length < 6) {
+        errorMessagesExternal.push("AN EMAIL CANNOT BE LESS THAN 6 CHARACTERS.");
+    } else if (locationOfAt < 0) {
+        errorMessagesExternal.push("AN EMAIL NEEDS TO INCLUDE ONE @ SIGN.");
+    } else if (frequencyOfAt > 1) {
+        errorMessagesExternal.push("AN EMAIL CANNOT INCLUDE MULTIPLE @ SIGNS.");
     }
-    if (link == "") {
-        errorMessagesExternal.push("A LINK CANNOT BE EMPTY.");
+    if (username == "") {
+        errorMessagesExternal.push("A USERNAME CANNOT BE EMPTY.");
+    } else if (username.length > 100) {
+        errorMessagesExternal.push("A USERNAME CANNOT BE MORE THAN 100 CHARACTERS.");
+    } else if (username.length < 3) {
+        errorMessagesExternal.push("A USERNAME CANNOT BE LESS THAN 3 CHARACTERS.");
     }
     if (experience == "") {
         errorMessagesExternal.push("AN EXPERIENCE CANNOT BE EMPTY.");
@@ -470,8 +502,8 @@ app.post("/experiences", (request, response) => {
 
     // IF NO EXTERNAL ERROR
     if (errorMessagesExternal.length == 0) {
-        const query = `INSERT INTO experiences (name, email, link, experience) VALUES (?, ?, ?, ?)`;
-        const values = [name, email, link, experience];
+        const query = `INSERT INTO experiences (name, email, username, experience) VALUES (?, ?, ?, ?)`;
+        const values = [name, email, username, experience];
 
         database.run(query, values, (error) => {
             const errorMessagesInternal = [];
@@ -509,7 +541,7 @@ app.post("/experiences", (request, response) => {
                         experiences,
                         name,
                         email,
-                        link,
+                        username,
                         experience,
                     });
                 }
@@ -533,7 +565,7 @@ app.post("/experiences", (request, response) => {
                 experiences,
                 name,
                 email,
-                link,
+                username,
                 experience,
             });
         });
@@ -554,12 +586,16 @@ app.get("/experiences/edit/:id", (request, response) => {
             errorMessagesInternal.push("CONTACT FORM COULDN'T BE RETRIEVED.");
         }
 
-        response.render("content-edit.hbs", {
-            webTitle: "Edit Experience",
-            webStyle: "content-edit.css",
-            errorMessagesInternal,
-            experiencesOne,
-        });
+        if (request.session.isLoggedIn) {
+            response.render("content-edit.hbs", {
+                webTitle: "Edit Experience",
+                webStyle: "content-edit.css",
+                errorMessagesInternal,
+                experiencesOne,
+            });
+        } else {
+            response.redirect("/admin");
+        }
     });
 });
 
@@ -569,7 +605,7 @@ app.post("/experiences/edit/:id", (request, response) => {
 
     const id = request.params.id;
     const newName = request.body.name;
-    const newLink = request.body.link;
+    const newUsername = request.body.username;
     const newExperience = request.body.experience;
 
     // CHECK IF EXTERNAL ERROR
@@ -578,8 +614,12 @@ app.post("/experiences/edit/:id", (request, response) => {
     } else if (newName.length > 20) {
         errorMessagesExternal.push("NEW NAME CANNOT BE MORE THAN 20 CHARACTERS.");
     }
-    if (newLink == "") {
-        errorMessagesExternal.push("NEW LINK CANNOT BE EMPTY.");
+    if (newUsername == "") {
+        errorMessagesExternal.push("NEW USERNAME CANNOT BE EMPTY.");
+    } else if (newUsername.length > 100) {
+        errorMessagesExternal.push("NEW USERNAME CANNOT BE MORE THAN 100 CHARACTERS.");
+    } else if (newUsername.length < 3) {
+        errorMessagesExternal.push("NEW USERNAME CANNOT BE LESS THAN 3 CHARACTERS.");
     }
     if (newExperience == "") {
         errorMessagesExternal.push("NEW EXPERIENCE CANNOT BE EMPTY.");
@@ -591,8 +631,8 @@ app.post("/experiences/edit/:id", (request, response) => {
 
     // IF NO EXTERNAL ERROR
     if (errorMessagesExternal.length == 0) {
-        const query = `UPDATE experiences SET name = ?, link = ?, experience = ? WHERE id = ?`;
-        const values = [newName, newLink, newExperience, id];
+        const query = `UPDATE experiences SET name = ?, username = ?, experience = ? WHERE id = ?`;
+        const values = [newName, newUsername, newExperience, id];
 
         database.run(query, values, (error) => {
             const errorMessagesInternal = [];
@@ -719,12 +759,24 @@ app.get("/contact/:id", (request, response) => {
 app.post("/contact", (request, response) => {
     const errorMessagesExternal = [];
 
-    const email = request.body.email;
     const message = request.body.message;
+    const email = request.body.email;
+    const locationOfAt = email.indexOf("@");
+    const frequencyOfAt = email.split("@").length - 1;
 
     // CHECK IF EXTERNAL ERROR
+    // The e-mail validation and constraints (if-statements) have been taken from the following website: https://insidethediv.com/email-validation-on-javascript. The following solution has been introduced to increase the security on the server side. I am not the owner of the following solution and, therefore, own no copyrights — Wiktoria Drezner, 07/10/2022
+
     if (email == "") {
         errorMessagesExternal.push("AN EMAIL CANNOT BE EMPTY.");
+    } else if (email.length > 254) {
+        errorMessagesExternal.push("AN EMAIL CANNOT BE MORE THAN 254 CHARACTERS.");
+    } else if (email.length < 6) {
+        errorMessagesExternal.push("AN EMAIL CANNOT BE LESS THAN 6 CHARACTERS.");
+    } else if (locationOfAt < 0) {
+        errorMessagesExternal.push("AN EMAIL NEEDS TO INCLUDE ONE @ SIGN.");
+    } else if (frequencyOfAt > 1) {
+        errorMessagesExternal.push("AN EMAIL CANNOT INCLUDE MULTIPLE @ SIGNS.");
     }
     if (message == "") {
         errorMessagesExternal.push("A MESSAGE CANNOT BE EMPTY.");
@@ -816,12 +868,16 @@ app.get("/contact/edit/:id", (request, response) => {
             errorMessagesInternal.push("CONTACT FORM COULDN'T BE RETRIEVED.");
         }
 
-        response.render("content-edit.hbs", {
-            webTitle: "Edit Contact",
-            webStyle: "content-edit.css",
-            errorMessagesInternal,
-            contactOne,
-        });
+        if (request.session.isLoggedIn) {
+            response.render("content-edit.hbs", {
+                webTitle: "Edit Contact",
+                webStyle: "content-edit.css",
+                errorMessagesInternal,
+                contactOne,
+            });
+        } else {
+            response.redirect("/admin");
+        }
     });
 });
 
@@ -933,5 +989,5 @@ app.post("/contact/delete/:id", (request, response) => {
 });
 
 app.listen(8080, () => {
-    console.log("Server is starting at port", 8000);
+    console.log("Server is starting at port", 8080);
 });
