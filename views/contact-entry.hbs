@@ -12,27 +12,27 @@
             </p>
         </div>
     {{/if}}
-    {{#if contact}}
+    {{#if contactOne}}
         <!-- SECTION 2: FAQ NUMBER -->
         <div class="gridSection02">
-            <h1>{{contact.id}}</h1>
+            <h1>{{contactOne.id}}</h1>
         </div>
         <!-- SECTION 3: FAQ QUESTION/ANSWER -->
         <div class="gridSection03">
             <div class="gridPackage03">
                 <h2>QUESTION</h2>
-                <p>{{contact.message}}</p>
+                <p>{{contactOne.message}}</p>
             </div>
             <div class="gridPackage03">
                 <h2>ANSWER</h2>
-                <p>{{contact.response}}</p>
+                <p>{{contactOne.response}}</p>
             </div>
             {{#if session.isLoggedIn}}
                 <div class="buttonPackage">
-                    <a class="buttonLink" href="/contact/edit/{{contact.id}}">
+                    <a class="buttonLink" href="/contact/edit/{{contactOne.id}}">
                         <button class="btn btnEdit">Edit</button>
                     </a>
-                    <form class="formButton" action="/contact/delete/{{contact.id}}" method="POST">
+                    <form class="formButton" action="/contact/delete/{{contactOne.id}}" method="POST">
                         <button type="submit" class="btn btnDelete">Delete</button>
                     </form>
                 </div>

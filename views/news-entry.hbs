@@ -12,19 +12,19 @@
             </p>
         </div>
     {{/if}}
-    {{#if news}}
+    {{#if newsOne}}
         <!-- SECTION 2: NEWS ENTRY -->
         <div class="gridSection02">
-            <h2>{{news.date}}</h2>
-            <h1>{{news.title}}</h1>
+            <h2>{{newsOne.date}}</h2>
+            <h1>{{newsOne.title}}</h1>
             {{!-- <img class="newsImage" src="{{image}}" /> --}}
-            <p>{{news.post}}</p>
+            <p>{{newsOne.post}}</p>
             {{#if session.isLoggedIn}}
                 <div class="buttonPackage">
-                    <a class="buttonLink" href="/news/edit/{{news.id}}">
+                    <a class="buttonLink" href="/news/edit/{{newsOne.id}}">
                         <button class="btn btnEdit">Edit</button>
                     </a>
-                    <form class="formButton" action="/news/delete/{{news.id}}" method="POST">
+                    <form class="formButton" action="/news/delete/{{newsOne.id}}" method="POST">
                         <button class="btn btnDelete" type="submit">Delete</button>
                     </form>
                 </div>

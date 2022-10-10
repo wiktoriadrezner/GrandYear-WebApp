@@ -1,4 +1,17 @@
 <div class="gridContainer">
+    <!-- SECTION 0: INTERNAL ERROR -->
+    {{#if errorMessagesInternal.length}}
+        <div class="gridSection00">
+            <p class="errorMessageHeader">! ERROR !</p>
+            <p class="errorMessage">INTERNAL SERVER ERROR.
+                <span>
+                    {{#each errorMessagesInternal}}
+                        {{this}}
+                    {{/each}}
+                </span>
+            </p>
+        </div>
+    {{/if}}
     <!-- SECTION 1: HEADER -->
     <div class="gridSection01">
         {{#unless session.isLoggedIn}}

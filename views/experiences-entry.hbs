@@ -12,24 +12,24 @@
             </p>
         </div>
     {{/if}}
-    {{#if experiences}}
+    {{#if experiencesOne}}
         <!-- SECTION 2: EXPERIENCE ENTRY -->
         <div class="gridSection02">
             <div class="gridPackage02">
-                <h1>{{experiences.name}}</h1>
+                <h1>{{experiencesOne.name}}</h1>
             </div>
             <div class="gridPackage02">
-                <a href="{{experiences.username}}"> CONNECT </a>
+                <a href="{{experiencesOne.username}}"> CONNECT </a>
             </div>
             <div class="gridPackage02">
-                <p>{{experiences.experience}}</p>
+                <p>{{experiencesOne.experience}}</p>
             </div>
             {{#if session.isLoggedIn}}
                 <div class="buttonPackage">
-                    <a class="buttonLink" href="/experiences/edit/{{experiences.id}}">
+                    <a class="buttonLink" href="/experiences/edit/{{experiencesOne.id}}">
                         <button class="btn btnEdit">Edit</button>
                     </a>
-                    <form class="formButton" action="/experiences/delete/{{experiences.id}}" method="POST">
+                    <form class="formButton" action="/experiences/delete/{{experiencesOne.id}}" method="POST">
                         <button type="submit" class="btn btnDelete">Delete</button>
                     </form>
                 </div>
