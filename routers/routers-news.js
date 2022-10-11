@@ -1,5 +1,5 @@
 const express = require("express");
-const database = require("../database.js");
+const database = require("../database/database-news.js");
 const multer = require("multer");
 
 const storage = multer.diskStorage({

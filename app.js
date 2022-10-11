@@ -34,7 +34,7 @@ app.use(
         resave: false,
         rolling: true,
         cookie: {
-            expires: 600000,
+            expires: 1800000,
         },
         store: new SQLiteStore({
             db: "userSessions.db",

@@ -1,5 +1,5 @@
 const express = require("express");
-const database = require("../database.js");
+const database = require("../database/database-experiences.js");
 
 const router = express.Router();
 
@@ -49,19 +49,6 @@ router.post("/", (request, response) => {
     const email = request.body.email;
     const locationOfAt = email.indexOf("@");
     const frequencyOfAt = email.split("@").length - 1;
-
-    // database.checkEmail(email, (error) => {
-    //     if (error) {
-    //         errorMessagesInternal.push("CONTACT FORM COULDN'T BE RETRIEVED.");
-    //     }
-
-    //     if (id) {
-    //         errorMessagesExternal.push("THIS EMAIL ADDRESS ALREADY EXISTS IN OUR DATABASE.");
-    //         console.log("duplicate");
-    //     } else {
-    //         console.log("boo");
-    //     }
-    // });
 
     // The e-mail validation and constraints (if-statements) have been taken from the following website: https://insidethediv.com/email-validation-on-javascript. The following solution has been introduced to increase the security on the server side. I am not the owner of the following solution and, therefore, own no copyrights — Wiktoria Drezner, 07/10/2022
 
