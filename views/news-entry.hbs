@@ -17,7 +17,6 @@
         <div class="gridSection02">
             <h2>{{newsOne.date}}</h2>
             <h1>{{newsOne.title}}</h1>
-            {{!-- <img class="newsImage" src="{{image}}" /> --}}
             <p>{{newsOne.post}}</p>
             {{#if session.isLoggedIn}}
                 <div class="buttonPackage">
@@ -29,6 +28,10 @@
                     </form>
                 </div>
             {{/if}}
+        </div>
+        <!-- SECTION 2: IMAGE -->
+        <div class="gridSection02Image">
+            <img src="/uploads/{{newsOne.image}}" />
         </div>
     {{else}}
         <!-- SECTION 3: ENTRY NOT FOUND -->

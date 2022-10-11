@@ -1,5 +1,19 @@
 const express = require("express");
 const database = require("../database.js");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+    destination(request, file, cb) {
+        cb(null, "./public/uploads");
+    },
+    filename(request, file, cb) {
+        cb(null, file.originalname);
+    },
+});
+
+const upload = multer({
+    storage,
+});
 
 const router = express.Router();
 
@@ -39,15 +53,20 @@ router.get("/:id", (request, response) => {
     });
 });
 
-router.post("/", (request, response) => {
+router.post("/", upload.single("image"), (request, response) => {
     const errorMessagesInternal = [];
     const errorMessagesExternal = [];
 
     const date = request.body.date;
     const title = request.body.title;
     const post = request.body.post;
-    // const image = request.body.image;
+    let image;
 
+    if (request.file) {
+        image = request.file.filename;
+    } else {
+        errorMessagesExternal.push("AN IMAGE NEEDS TO BE SELECTED.");
+    }
     if (date == "") {
         errorMessagesExternal.push("A DATE CANNOT BE EMPTY.");
     }
@@ -67,7 +86,7 @@ router.post("/", (request, response) => {
     }
 
     if (errorMessagesExternal.length == 0) {
-        database.createNews(date, title, post, (error) => {
+        database.createNews(date, title, post, image, (error) => {
             if (error) {
                 errorMessagesInternal.push("YOUR ENTRY COULDN'T BE PUBLISHED.");
             }

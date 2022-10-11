@@ -7,7 +7,8 @@ database.run(`
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
         date TEXT,
         title TEXT,
-        post TEXT
+        post TEXT,
+        image TEXT
 	);
 `);
 
@@ -28,9 +29,9 @@ exports.getNewsID = (id, callback) => {
     });
 };
 
-exports.createNews = (date, title, post, callback) => {
-    const query = `INSERT INTO news (date, title, post) VALUES (?, ?, ?)`;
-    const values = [date, title, post];
+exports.createNews = (date, title, post, image, callback) => {
+    const query = `INSERT INTO news (date, title, post, image) VALUES (?, ?, ?, ?)`;
+    const values = [date, title, post, image];
 
     database.get(query, values, (error) => {
         callback(error);
@@ -99,6 +100,15 @@ exports.createExperiences = (name, username, experience, email, callback) => {
         callback(error);
     });
 };
+
+// exports.checkEmail = (email, callback) => {
+//     const query = `SELECT id * FROM experiences WHERE email = ?`;
+//     const values = [email];
+
+//     database.get(query, values, (error) => {
+//         callback(error);
+//     });
+// };
 
 exports.editExperiences = (newName, newUsername, newExperience, id, callback) => {
     const query = `UPDATE experiences SET name = ?, username = ?, experience = ? WHERE id = ?`;

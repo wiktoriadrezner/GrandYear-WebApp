@@ -38,42 +38,42 @@
                     <h2>
                         <a href="/news/{{id}}">{{title}}</a>
                     </h2>
-                    {{!-- <img src="{{image}}" /> --}}
+                    <img src="/uploads/{{image}}" />
                     <p>{{post}}</p>
                 </div>
             {{/each}}
         </div>
     {{/if}}
     <!-- SECTION 4: FORM — SHARE NEWS -->
-    {{#if session.isLoggedIn}}
-        <div class="gridSection04">
-            {{#if errorMessagesExternal.length}}
-                <p class="errorMessageHeader">! ERROR !</p>
-                <p class="errorMessage">WE COULDN'T SHARE THE NEWS.
-                    {{#each errorMessagesExternal}}
-                        {{this}}
-                    {{/each}}
-                </p>
-            {{/if}}
-            <form action="/news" method="post" class="formGroup">
-                <div class="formPackage">
-                    <label class="form-label">Date</label>
-                    <input class="form-input" type="date" name="date" value="{{date}}" />
-                </div>
-                <div class="formPackage">
-                    <label class="form-label">Title</label>
-                    <input class="form-input" type="text" name="title" value="{{title}}" placeholder="Enter Your Title" />
-                </div>
-                {{! <div class="formPackage">
+    {{!-- {{#if session.isLoggedIn}} --}}
+    <div class="gridSection04">
+        {{#if errorMessagesExternal.length}}
+            <p class="errorMessageHeader">! ERROR !</p>
+            <p class="errorMessage">WE COULDN'T SHARE THE NEWS.
+                {{#each errorMessagesExternal}}
+                    {{this}}
+                {{/each}}
+            </p>
+        {{/if}}
+        <form action="/news" method="post" enctype="multipart/form-data" class="formGroup">
+            <div class="formPackage">
                 <label class="form-label">Image</label>
                 <input class="form-input" type="file" name="image" />
-            </div> }}
-                <div class="formPackage">
-                    <label class="form-label">Post</label>
-                    <textarea class="form-input" name="post" placeholder="Enter Your Post" rows="8">{{post}}</textarea>
-                </div>
-                <button class="btn btnSubmit" type="submit">Publish</button>
-            </form>
-        </div>
-    {{/if}}
+            </div>
+            <div class="formPackage">
+                <label class="form-label">Date</label>
+                <input class="form-input" type="date" name="date" value="{{date}}" />
+            </div>
+            <div class="formPackage">
+                <label class="form-label">Title</label>
+                <input class="form-input" type="text" name="title" value="{{title}}" placeholder="Enter Your Title" />
+            </div>
+            <div class="formPackage">
+                <label class="form-label">Post</label>
+                <textarea class="form-input" name="post" placeholder="Enter Your Post" rows="8">{{post}}</textarea>
+            </div>
+            <button class="btn btnSubmit" type="submit">Publish</button>
+        </form>
+    </div>
+    {{!-- {{/if}} --}}
 </div>

@@ -64,12 +64,13 @@ body {
     overflow: hidden;
     color: var(--color-03);
 }
-/* .gridSection03 img {
-    display: block;
+.gridSection03 img {
+    object-fit: cover;
     width: 100%;
+    height: 40vh;
     padding-top: 1vw;
     padding-bottom: 1vw;
-} */
+}
 
 /* SECTION 4: FORM — SHARE NEWS */
 .gridSection04 {

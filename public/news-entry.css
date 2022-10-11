@@ -3,6 +3,17 @@ body {
     background-color: var(--color-01);
 }
 
+/* SECTION 2: IMAGE */
+.gridSection02Image {
+    grid-column-start: 1;
+    grid-column-end: 13;
+    padding: 1vw 0 0 0;
+}
+.gridSection02Image img {
+    object-fit: cover;
+    width: 100%;
+}
+
 /* SECTION 2: NEWS ENTRY */
 .gridSection02 {
     grid-column-start: 2;
@@ -46,6 +57,9 @@ footer {
         grid-column-end: 13;
         padding: 4vw 4vw 0 4vw;
     }
+    .gridSection02Image {
+        padding: 2vw 0 0 0;
+    }
 }
 
 /* RESPONSIVE — MOBILE */
@@ -56,5 +70,8 @@ footer {
     .gridSection02 h1 {
         font-size: 5.5vw;
         padding: 1vw 0 1vw 0;
+    }
+    .gridSection02Image {
+        padding: 3.5vw 0 3.5vw 0;
     }
 }

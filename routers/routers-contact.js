@@ -6,6 +6,12 @@ const router = express.Router();
 router.get("/", (request, response) => {
     const errorMessagesInternal = [];
 
+    // const page = request.query.page;
+    // const limit = request.query.limit;
+
+    // const startIndex = (page - 1) * limit;
+    // const endIndex = page * limit;
+
     database.getContactAll((error, contact) => {
         if (error) {
             errorMessagesInternal.push("EXISTING ENTRIES COULDN'T BE RETRIEVED");
