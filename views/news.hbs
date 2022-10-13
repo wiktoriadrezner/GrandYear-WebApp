@@ -1,6 +1,6 @@
 <div class="gridContainer">
     <!-- SECTION 0: INTERNAL ERROR -->
-    {{#if errorMessagesInternal.length}}
+    {{#if errorMessagesInternal}}
         <div class="gridSection00">
             <p class="errorMessageHeader">! ERROR !</p>
             <p class="errorMessage">INTERNAL SERVER ERROR.
@@ -25,12 +25,12 @@
             more. Read our tips for growth, learning and getting new skills. Learn how you can make an impact. Check how we are getting involved and spread the
             Grand Message. Click on the news' title to read more.
         </p>
-        {{#unless news.length}}
+        {{#unless news}}
             <p class="errorNoEntries">There are no News at the moment...</p>
         {{/unless}}
     </div>
     <!-- SECTION 3: NEWS -->
-    {{#if news.length}}
+    {{#if news}}
         <div class="gridSection03">
             {{#each news}}
                 <div>
@@ -45,35 +45,35 @@
         </div>
     {{/if}}
     <!-- SECTION 4: FORM — SHARE NEWS -->
-    {{!-- {{#if session.isLoggedIn}} --}}
-    <div class="gridSection04">
-        {{#if errorMessagesExternal.length}}
-            <p class="errorMessageHeader">! ERROR !</p>
-            <p class="errorMessage">WE COULDN'T SHARE THE NEWS.
-                {{#each errorMessagesExternal}}
-                    {{this}}
-                {{/each}}
-            </p>
-        {{/if}}
-        <form action="/news" method="post" enctype="multipart/form-data" class="formGroup">
-            <div class="formPackage">
-                <label class="form-label">Image</label>
-                <input class="form-input" type="file" name="image" />
-            </div>
-            <div class="formPackage">
-                <label class="form-label">Date</label>
-                <input class="form-input" type="date" name="date" value="{{date}}" />
-            </div>
-            <div class="formPackage">
-                <label class="form-label">Title</label>
-                <input class="form-input" type="text" name="title" value="{{title}}" placeholder="Enter Your Title" />
-            </div>
-            <div class="formPackage">
-                <label class="form-label">Post</label>
-                <textarea class="form-input" name="post" placeholder="Enter Your Post" rows="8">{{post}}</textarea>
-            </div>
-            <button class="btn btnSubmit" type="submit">Publish</button>
-        </form>
-    </div>
-    {{!-- {{/if}} --}}
+    {{#if session.isLoggedIn}}
+        <div class="gridSection04">
+            {{#if errorMessagesExternal}}
+                <p class="errorMessageHeader">! ERROR !</p>
+                <p class="errorMessage">WE COULDN'T SHARE THE NEWS.
+                    {{#each errorMessagesExternal}}
+                        {{this}}
+                    {{/each}}
+                </p>
+            {{/if}}
+            <form action="/news" method="post" enctype="multipart/form-data" class="formGroup">
+                <div class="formPackage">
+                    <label class="form-label">Image</label>
+                    <input class="form-input" type="file" name="image" />
+                </div>
+                <div class="formPackage">
+                    <label class="form-label">Date</label>
+                    <input class="form-input" type="date" name="date" value="{{date}}" />
+                </div>
+                <div class="formPackage">
+                    <label class="form-label">Title</label>
+                    <input class="form-input" type="text" name="title" value="{{title}}" placeholder="Enter Your Title" />
+                </div>
+                <div class="formPackage">
+                    <label class="form-label">Post</label>
+                    <textarea class="form-input" name="post" placeholder="Enter Your Post" rows="8">{{post}}</textarea>
+                </div>
+                <button class="btn btnSubmit" type="submit">Publish</button>
+            </form>
+        </div>
+    {{/if}}
 </div>

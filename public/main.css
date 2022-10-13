@@ -149,7 +149,6 @@ label {
 }
 .form-input {
     border: 0.05rem solid white;
-    font-size: 1.2vw;
 }
 .form-input:focus,
 .form-input:hover {
@@ -162,7 +161,7 @@ button,
 input,
 textarea {
     font-family: "Quicksand", sans-serif;
-    font-size: 1.2vw;
+    font-size: 1.2em;
 }
 .btn {
     font-family: "Poppins", sans-serif;

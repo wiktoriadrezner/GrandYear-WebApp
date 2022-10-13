@@ -1,6 +1,6 @@
 <div class="gridContainer">
     <!-- SECTION 0: INTERNAL ERROR -->
-    {{#if errorMessagesInternal.length}}
+    {{#if errorMessagesInternal}}
         <div class="gridSection00">
             <p class="errorMessageHeader">! ERROR !</p>
             <p class="errorMessage">INTERNAL SERVER ERROR.
@@ -16,7 +16,7 @@
     <div class="gridSection01">
         {{#unless session.isLoggedIn}}
             <h1>Log In</h1>
-            {{#if errorMessagesExternal.length}}
+            {{#if errorMessagesExternal}}
                 <p class="errorMessageHeader">! ERROR !</p>
                 <p class="errorMessage">
                     {{#each errorMessagesExternal}}

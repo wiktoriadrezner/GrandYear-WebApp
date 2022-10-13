@@ -1,0 +1,114 @@
+<div class="gridContainer">
+    <!-- SECTION 0: INTERNAL ERROR -->
+    {{#if errorMessagesInternal}}
+        <div class="gridSection00">
+            <p class="errorMessageHeader">! ERROR !</p>
+            <p class="errorMessage">INTERNAL SERVER ERROR.
+                <span>
+                    {{#each errorMessagesInternal}}
+                        {{this}}
+                    {{/each}}
+                </span>
+            </p>
+        </div>
+    {{/if}}
+    <!-- SECTION 2: SEARCH FORM -->
+    <div class="gridSection02">
+        <h1>Grand Search</h1>
+        {{#if errorMessagesExternal}}
+            <p class="errorMessageHeader">! ERROR !</p>
+            <p class="errorMessage">WE COULDN'T PERFORM THE SEARCH.
+                {{#each errorMessagesExternal}}
+                    <span>{{this}}</span>
+                {{/each}}
+            </p>
+        {{/if}}
+        <form action="/search/results" method="get" class="formGroup">
+            <div class="formPackage">
+                <input
+                    class="form-input"
+                    type="text"
+                    id="valueSearched"
+                    name="valueSearched"
+                    placeholder="What are you looking for?"
+                    value="{{valueSearched}}"
+                />
+            </div>
+            <button class="btn btnSubmit" type="submit">Search</button>
+        </form>
+    </div>
+    <!-- SECTION 3: Header -->
+    {{#unless errorMessagesExternal}}
+        {{#if valueSearched}}
+            <div class="gridSection03">
+                {{#if contact}}
+                    <h2>We found the following matches for: <span>{{valueSearched}}</span>...</h2>{{else}}
+                    {{#if experiences}}
+                        <h2>We found the following matches for: <span>{{valueSearched}}</span>...</h2>{{else}}
+                        {{#if news}}
+                            <h2>We found the following matches for: <span>{{valueSearched}}</span>...</h2>
+                        {{/if}}
+                    {{/if}}
+                {{/if}}
+                {{#unless contact}}
+                    {{#unless experiences}}
+                        {{#unless news}}
+                            <h2> Ooopsie! There are no matches for: <span>{{valueSearched}}</span>... </h2>
+                        {{/unless}}
+                    {{/unless}}
+                {{/unless}}
+            </div>
+        {{/if}}
+    {{/unless}}
+    <!-- SECTION 4: SEARCH RESULTS -->
+    {{#if contact}}
+        <div class="gridSection04">
+            <h1> —— FAQ </h1>
+            <div class="miniGridSection04">
+                {{#each contact}}
+                    <div>
+                        <h1>{{id}}</h1>
+                        <h2>
+                            <a href="/contact/{{id}}">
+                                {{message}}
+                            </a>
+                        </h2>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    {{/if}}
+    {{#if experiences}}
+        <div class="gridSection04">
+            <h1> —— Experiences </h1>
+            <div class="miniGridSection04">
+                {{#each experiences}}
+                    <div>
+                        <h1>{{id}}</h1>
+                        <h2>
+                            <a href="/experiences/{{id}}">{{name}}</a>
+                        </h2>
+                        <p>{{experience}}</p>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    {{/if}}
+    {{#if news}}
+        <div class="gridSection04">
+            <h1> —— News </h1>
+            <div class="miniGridSection04">
+                {{#each news}}
+                    <div>
+                        <h1>{{id}}</h1>
+                        <p class="gridDate">{{date}}</p>
+                        <h2>
+                            <a href="/news/{{id}}">{{title}}</a>
+                        </h2>
+                        <p>{{post}}</p>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    {{/if}}
+</div>

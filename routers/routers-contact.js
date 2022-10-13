@@ -6,15 +6,9 @@ const router = express.Router();
 router.get("/", (request, response) => {
     const errorMessagesInternal = [];
 
-    // const page = request.query.page;
-    // const limit = request.query.limit;
-
-    // const startIndex = (page - 1) * limit;
-    // const endIndex = page * limit;
-
     database.getContactAll((error, contact) => {
         if (error) {
-            errorMessagesInternal.push("EXISTING ENTRIES COULDN'T BE RETRIEVED");
+            errorMessagesInternal.push("EXISTING ENTRIES COULDN'T BE RETRIEVED.");
         }
 
         response.render("contact", {
@@ -56,7 +50,7 @@ router.post("/", (request, response) => {
 
     // The e-mail validation and constraints (if-statements) have been taken from the following website: https://insidethediv.com/email-validation-on-javascript. The following solution has been introduced to increase the security on the server side. I am not the owner of the following solution and, therefore, own no copyrights — Wiktoria Drezner, 07/10/2022
 
-    if (email == "") {
+    if (email.length == 0) {
         errorMessagesExternal.push("AN EMAIL CANNOT BE EMPTY.");
     } else if (email.length > 254) {
         errorMessagesExternal.push("AN EMAIL CANNOT BE MORE THAN 254 CHARACTERS.");
@@ -67,7 +61,7 @@ router.post("/", (request, response) => {
     } else if (frequencyOfAt > 1) {
         errorMessagesExternal.push("AN EMAIL CANNOT INCLUDE MULTIPLE @ SIGNS.");
     }
-    if (message == "") {
+    if (message.length == 0) {
         errorMessagesExternal.push("A MESSAGE CANNOT BE EMPTY.");
     } else if (message.length > 300) {
         errorMessagesExternal.push("A MESSAGE CANNOT BE MORE THAN 300 CHARACTERS.");
@@ -160,14 +154,14 @@ router.post("/edit/:id", (request, response) => {
     const newResponse = request.body.response;
     const id = request.params.id;
 
-    if (newMessage == "") {
+    if (newMessage.length == 0) {
         errorMessagesExternal.push("NEW MESSAGE CANNOT BE EMPTY.");
     } else if (newMessage.length > 300) {
         errorMessagesExternal.push("NEW MESSAGE CANNOT BE MORE THAN 300 CHARACTERS.");
     } else if (newMessage.length < 20) {
         errorMessagesExternal.push("NEW MESSAGE CANNOT BE LESS THAN 20 CHARACTERS.");
     }
-    if (newResponse == "") {
+    if (newResponse.length == 0) {
         errorMessagesExternal.push("NEW RESPONSE CANNOT BE EMPTY.");
     } else if (newResponse.length > 1000) {
         errorMessagesExternal.push("NEW RESPONSE CANNOT BE MORE THAN 1000 CHARACTERS.");

@@ -1,0 +1,129 @@
+/* NAVIGATION PAGE LINK */
+.navigationLink06 {
+    color: var(--color-05);
+}
+
+/* SECTION 2: SEARCH FORM */
+.gridSection02 {
+    grid-column-start: 1;
+    grid-column-end: 13;
+    padding: 3vw 25vw 5vw 25vw;
+    background-color: var(--color-01);
+}
+.gridSection02 h1 {
+    color: var(--color-05);
+    text-align: center;
+}
+
+/* SECTION 3: Header */
+.gridSection03 {
+    grid-column-start: 1;
+    grid-column-end: 13;
+    padding: 4vw 4vw 0 4vw;
+}
+.gridSection03 h2 span {
+    color: var(--color-05);
+}
+
+/* SECTION 4: SEARCH RESULTS */
+.gridSection04 {
+    grid-column-start: 1;
+    grid-column-end: 13;
+    padding: 4vw 4vw 0 4vw;
+}
+.gridSection04 h1 {
+    font-size: 5vw;
+    color: var(--color-01);
+}
+.miniGridSection04 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 4vw;
+    row-gap: 3vw;
+}
+.miniGridSection04 div h1 {
+    font-size: 3vw;
+    color: var(--color-01);
+    text-align: left;
+}
+.gridDate {
+    color: var(--color-01);
+    font-size: 1.5vw;
+    font-family: "Poppins", sans-serif;
+}
+.gridSection04 h2 {
+    font-size: 1.5vw;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    color: var(--color-05);
+}
+
+.gridSection04 a {
+    color: var(--color-05);
+    text-decoration: none;
+}
+.gridSection04 h2:hover,
+.gridSection04 a:hover {
+    transition: 0.8s;
+    color: var(--color-01);
+}
+.gridSection04 p {
+    text-align: left;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+/* RESPONSIVE — TABLET */
+@media (max-width: 1400px) {
+    .gridSection02 {
+        padding: 3vw 20vw 5vw 20vw;
+    }
+    .gridSection04 h1 {
+        font-size: 7vw;
+    }
+    .miniGridSection04 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .miniGridSection04 div h1 {
+        font-size: 5vw;
+    }
+    .gridDate,
+    .gridSection04 h2 {
+        font-size: 2vw;
+    }
+}
+
+/* RESPONSIVE — MOBILE */
+@media (max-width: 500px) {
+    .gridSection02 {
+        padding: 3vw 7vw 5vw 7vw;
+    }
+    .gridSection03 h2 {
+        padding-top: 3vw;
+    }
+    .gridSection03,
+    .gridSection04 {
+        padding: 1vw 7vw 3vw 7vw;
+    }
+    .gridSection04 h1 {
+        font-size: 8vw;
+    }
+    .miniGridSection04 {
+        display: block;
+    }
+    .miniGridSection04 div {
+        padding-bottom: 3vw;
+    }
+    .miniGridSection04 div h1 {
+        font-size: 8vw;
+    }
+    .gridDate,
+    .gridSection04 h2 {
+        font-size: 5vw;
+    }
+}

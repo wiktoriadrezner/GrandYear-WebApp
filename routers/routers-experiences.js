@@ -52,12 +52,12 @@ router.post("/", (request, response) => {
 
     // The e-mail validation and constraints (if-statements) have been taken from the following website: https://insidethediv.com/email-validation-on-javascript. The following solution has been introduced to increase the security on the server side. I am not the owner of the following solution and, therefore, own no copyrights — Wiktoria Drezner, 07/10/2022
 
-    if (name == "") {
+    if (name.length == 0) {
         errorMessagesExternal.push("A NAME CANNOT BE EMPTY.");
     } else if (name.length > 20) {
         errorMessagesExternal.push("A NAME CANNOT BE MORE THAN 20 CHARACTERS.");
     }
-    if (email == "") {
+    if (email.length == 0) {
         errorMessagesExternal.push("AN EMAIL CANNOT BE EMPTY.");
     } else if (email.length > 254) {
         errorMessagesExternal.push("AN EMAIL CANNOT BE MORE THAN 254 CHARACTERS.");
@@ -68,14 +68,14 @@ router.post("/", (request, response) => {
     } else if (frequencyOfAt > 1) {
         errorMessagesExternal.push("AN EMAIL CANNOT INCLUDE MULTIPLE @ SIGNS.");
     }
-    if (username == "") {
+    if (username.length == 0) {
         errorMessagesExternal.push("A USERNAME CANNOT BE EMPTY.");
     } else if (username.length > 100) {
         errorMessagesExternal.push("A USERNAME CANNOT BE MORE THAN 100 CHARACTERS.");
     } else if (username.length < 3) {
         errorMessagesExternal.push("A USERNAME CANNOT BE LESS THAN 3 CHARACTERS.");
     }
-    if (experience == "") {
+    if (experience.length == 0) {
         errorMessagesExternal.push("AN EXPERIENCE CANNOT BE EMPTY.");
     } else if (experience.length > 1000) {
         errorMessagesExternal.push("AN EXPERIENCE CANNOT BE MORE THAN 1000 CHARACTERS.");
@@ -175,19 +175,19 @@ router.post("/edit/:id", (request, response) => {
     const newExperience = request.body.experience;
     const id = request.params.id;
 
-    if (newName == "") {
+    if (newName.length == 0) {
         errorMessagesExternal.push("NEW NAME CANNOT BE EMPTY.");
     } else if (newName.length > 20) {
         errorMessagesExternal.push("NEW NAME CANNOT BE MORE THAN 20 CHARACTERS.");
     }
-    if (newUsername == "") {
+    if (newUsername.length == 0) {
         errorMessagesExternal.push("NEW USERNAME CANNOT BE EMPTY.");
     } else if (newUsername.length > 100) {
         errorMessagesExternal.push("NEW USERNAME CANNOT BE MORE THAN 100 CHARACTERS.");
     } else if (newUsername.length < 3) {
         errorMessagesExternal.push("NEW USERNAME CANNOT BE LESS THAN 3 CHARACTERS.");
     }
-    if (newExperience == "") {
+    if (newExperience.length == 0) {
         errorMessagesExternal.push("NEW EXPERIENCE CANNOT BE EMPTY.");
     } else if (newExperience.length > 1000) {
         errorMessagesExternal.push("NEW EXPERIENCE CANNOT BE MORE THAN 1000 CHARACTERS.");

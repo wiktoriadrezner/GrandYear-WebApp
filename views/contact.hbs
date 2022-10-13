@@ -1,6 +1,6 @@
 <div class="gridContainer">
     <!-- SECTION 0: INTERNAL ERROR -->
-    {{#if errorMessagesInternal.length}}
+    {{#if errorMessagesInternal}}
         <div class="gridSection00">
             <p class="errorMessageHeader">! ERROR !</p>
             <p class="errorMessage">INTERNAL SERVER ERROR.
@@ -31,7 +31,7 @@
     </div>
     <!-- SECTION 4: FORM — LEAVE A QUESTION -->
     <div class="gridSection04">
-        {{#if errorMessagesExternal.length}}
+        {{#if errorMessagesExternal}}
             <p class="errorMessageHeader">! ERROR !</p>
             <p class="errorMessage">WE COULDN'T SHARE THE MESSAGE.
                 {{#each errorMessagesExternal}}
@@ -57,12 +57,12 @@
         <h1>FAQ</h1>
         <h2>Frequently Asked Questions</h2>
         <p>One place where all the questions are important and answered.</p>
-        {{#unless contact.length}}
+        {{#unless contact}}
             <p class="errorNoEntries">There are no FAQ entries at the moment...</p>
         {{/unless}}
     </div>
     <!-- SECTION 6: FAQ — CONTENT -->
-    {{#if contact.length}}
+    {{#if contact}}
         <div class="gridSection06">
             {{#each contact}}
                 <div>

@@ -1,6 +1,6 @@
 <div class="gridContainer">
     <!-- SECTION 0: INTERNAL ERROR -->
-    {{#if errorMessagesInternal.length}}
+    {{#if errorMessagesInternal}}
         <div class="gridSection00">
             <p class="errorMessageHeader">! ERROR !</p>
             <p class="errorMessage">INTERNAL SERVER ERROR.
@@ -16,7 +16,7 @@
         <!-- SECTION 2: EDIT CONTACT -->
         <div class="gridSection02">
             <h1>Edit Contact</h1>
-            {{#if errorMessagesExternal.length}}
+            {{#if errorMessagesExternal}}
                 <p class="errorMessageHeader">! ERROR !</p>
                 <p class="errorMessage">WE COULDN'T UPDATE THE CONTACT ENTRY.
                     {{#each errorMessagesExternal}}
@@ -41,7 +41,7 @@
         <!-- SECTION 2: EDIT NEWS -->
         <div class="gridSection02">
             <h1>Edit News</h1>
-            {{#if errorMessagesExternal.length}}
+            {{#if errorMessagesExternal}}
                 <p class="errorMessageHeader">! ERROR !</p>
                 <p class="errorMessage">WE COULDN'T UPDATE THE NEWS ENTRY.
                     {{#each errorMessagesExternal}}
@@ -70,7 +70,7 @@
         <!-- SECTION 2: EDIT EXPERIENCE -->
         <div class="gridSection02">
             <h1>Edit Experience</h1>
-            {{#if errorMessagesExternal.length}}
+            {{#if errorMessagesExternal}}
                 <p class="errorMessageHeader">! ERROR !</p>
                 <p class="errorMessage">WE COULDN'T UPDATE THE CONTACT ENTRY.
                     {{#each errorMessagesExternal}}

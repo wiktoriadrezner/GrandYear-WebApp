@@ -1,6 +1,6 @@
 <div class="gridContainer">
     <!-- SECTION 0: INTERNAL ERROR -->
-    {{#if errorMessagesInternal.length}}
+    {{#if errorMessagesInternal}}
         <div class="gridSection00">
             <p class="errorMessageHeader">! ERROR !</p>
             <p class="errorMessage">INTERNAL SERVER ERROR.
@@ -54,12 +54,12 @@
     <!-- SECTION 4: INSPIRING HUMANS — HEADER -->
     <div class="gridSection04">
         <h1>Inspiring Humans</h1>
-        {{#unless experiences.length}}
+        {{#unless experiences}}
             <p class="errorNoEntries">There are no Inspiring Humans at the moment...</p>
         {{/unless}}
     </div>
     <!-- SECTION 5: INSPIRING HUMANS -->
-    {{#if experiences.length}}
+    {{#if experiences}}
         <div class="gridSection05">
             {{#each experiences}}
                 <div>
@@ -88,7 +88,7 @@
     </div>
     <!-- SECTION 7: FORM — SHARE YOUR STORY -->
     <div class="gridSectionB gridSection07">
-        {{#if errorMessagesExternal.length}}
+        {{#if errorMessagesExternal}}
             <p class="errorMessageHeader">! ERROR !</p>
             <p class="errorMessage">WE COULDN'T SHARE THE EXPERIENCE.
                 {{#each errorMessagesExternal}}

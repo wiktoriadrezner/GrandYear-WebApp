@@ -5,10 +5,10 @@ const database = new sqlite3.Database("grand-year-database.db");
 database.run(`
 	CREATE TABLE IF NOT EXISTS news (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
-        date TEXT,
-        title TEXT,
-        post TEXT,
-        image TEXT
+		date TEXT,
+		title TEXT,
+		post TEXT,
+		image TEXT
 	);
 `);
 
@@ -16,10 +16,10 @@ database.run(`
 database.run(`
 	CREATE TABLE IF NOT EXISTS experiences (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
-        email TEXT,
-        username TEXT,
-        experience TEXT
+		name TEXT,
+		email TEXT,
+		username TEXT,
+		experience TEXT
 	);
 `);
 
@@ -29,7 +29,7 @@ database.run(`
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		email TEXT,
 		message TEXT,
-        response TEXT
+		response TEXT
 	);
 `);
 

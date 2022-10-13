@@ -11,9 +11,7 @@ const storage = multer.diskStorage({
     },
 });
 
-const upload = multer({
-    storage,
-});
+const upload = multer({ storage });
 
 const router = express.Router();
 
@@ -60,24 +58,23 @@ router.post("/", upload.single("image"), (request, response) => {
     const date = request.body.date;
     const title = request.body.title;
     const post = request.body.post;
-    let image;
 
     if (request.file) {
-        image = request.file.filename;
+        var image = request.file.filename;
     } else {
         errorMessagesExternal.push("AN IMAGE NEEDS TO BE SELECTED.");
     }
-    if (date == "") {
+    if (date.length == 0) {
         errorMessagesExternal.push("A DATE CANNOT BE EMPTY.");
     }
-    if (title == "") {
+    if (title.length == 0) {
         errorMessagesExternal.push("A TITLE CANNOT BE EMPTY.");
     } else if (title.length < 10) {
         errorMessagesExternal.push("A TITLE CANNOT BE LESS THAN 10 CHARACTERS.");
     } else if (title.length > 100) {
         errorMessagesExternal.push("A TITLE CANNOT BE MORE THAN 100 CHARACTERS.");
     }
-    if (post == "") {
+    if (post.length == 0) {
         errorMessagesExternal.push("A POST CANNOT BE EMPTY.");
     } else if (post.length < 100) {
         errorMessagesExternal.push("A POST CANNOT BE LESS THAN 100 CHARACTERS.");
@@ -173,17 +170,17 @@ router.post("/edit/:id", (request, response) => {
     const newPost = request.body.post;
     const id = request.params.id;
 
-    if (newDate == "") {
+    if (newDate.length == 0) {
         errorMessagesExternal.push("NEW DATE CANNOT BE EMPTY.");
     }
-    if (newTitle == "") {
+    if (newTitle.length == 0) {
         errorMessagesExternal.push("NEW TITLE CANNOT BE EMPTY.");
     } else if (newTitle.length < 10) {
         errorMessagesExternal.push("NEW TITLE CANNOT BE LESS THAN 10 CHARACTERS.");
     } else if (newTitle.length > 100) {
         errorMessagesExternal.push("NEW TITLE CANNOT BE MORE THAN 100 CHARACTERS.");
     }
-    if (newPost == "") {
+    if (newPost.length == 0) {
         errorMessagesExternal.push("NEW POST CANNOT BE EMPTY.");
     } else if (newPost.length < 100) {
         errorMessagesExternal.push("NEW POST CANNOT BE LESS THAN 100 CHARACTERS.");

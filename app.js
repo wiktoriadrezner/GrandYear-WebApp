@@ -6,11 +6,14 @@ const SQLiteStore = require("connect-sqlite3")(expressSession);
 const routerNews = require("./routers/routers-news.js");
 const routerExperiences = require("./routers/routers-experiences.js");
 const routerContact = require("./routers/routers-contact.js");
+const routerSearch = require("./routers/routers-search.js");
 
 const adminUsername = "123";
 const adminPassword = "123";
 
 const app = express();
+
+app.set("view engine", "hbs");
 
 app.engine(
     "hbs",
@@ -37,7 +40,7 @@ app.use(
             expires: 1800000,
         },
         store: new SQLiteStore({
-            db: "userSessions.db",
+            db: "user-sessions.db",
         }),
     })
 );
@@ -50,8 +53,7 @@ app.use((request, response, next) => {
 app.use("/news", routerNews);
 app.use("/experiences", routerExperiences);
 app.use("/contact", routerContact);
-
-app.set("view engine", "hbs");
+app.use("/search", routerSearch);
 
 app.get("/", (request, response) => {
     response.render("index", {
