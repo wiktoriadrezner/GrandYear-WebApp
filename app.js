@@ -1,4 +1,5 @@
 const express = require("express");
+const bcrypt = require("bcrypt");
 const expressHandlebars = require("express-handlebars");
 const expressSession = require("express-session");
 const SQLiteStore = require("connect-sqlite3")(expressSession);
@@ -8,8 +9,8 @@ const routerExperiences = require("./routers/routers-experiences.js");
 const routerContact = require("./routers/routers-contact.js");
 const routerSearch = require("./routers/routers-search.js");
 
-const adminUsername = "123";
-const adminPassword = "123";
+const adminUsername = "admin";
+const adminPassword = "$2b$10$fW7fJD0qOlrcXq64ztFmaeUUQb9Tn3N7efaXzyaiCr3vsPXL5Zpvm";
 
 const app = express();
 
@@ -91,7 +92,9 @@ app.post("/admin/login", (request, response) => {
     const enteredUsername = request.body.username;
     const enteredPassword = request.body.password;
 
-    if (enteredUsername == adminUsername && enteredPassword == adminPassword) {
+    const passwordResult = bcrypt.compareSync(enteredPassword, adminPassword);
+
+    if (enteredUsername == adminUsername && passwordResult) {
         request.session.regenerate((error) => {
             if (error) {
                 errorMessagesInternal.push("SESSION COULDN'T BE REGENERATED.");
