@@ -36,7 +36,7 @@ exports.editExperiences = (newName, newUsername, newExperience, id, callback) =>
 };
 
 exports.deleteExperiences = (id, callback) => {
-    const query = "DELETE FROM experiences WHERE id = ?";
+    const query = `DELETE FROM experiences WHERE id = ?`;
     const values = [id];
 
     database.get(query, values, (error) => {

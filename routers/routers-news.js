@@ -1,6 +1,7 @@
 const express = require("express");
 const database = require("../database/database-news.js");
 const multer = require("multer");
+const fs = require("node:fs");
 
 const storage = multer.diskStorage({
     destination(request, file, cb) {
@@ -11,7 +12,9 @@ const storage = multer.diskStorage({
     },
 });
 
-const upload = multer({ storage });
+const upload = multer({
+    storage: storage,
+});
 
 const router = express.Router();
 
@@ -60,7 +63,24 @@ router.post("/", upload.single("image"), (request, response) => {
     const post = request.body.post;
 
     if (request.file) {
-        var image = request.file.filename;
+        const imagePath = "./public/uploads/" + request.file.filename;
+        if (request.file.size > 5000000) {
+            errorMessagesExternal.push("AN IMAGE CANNOT BE LARGER THAN 5MB.");
+            fs.unlink(imagePath, (error) => {
+                if (error) {
+                    errorMessagesInternal.push("AN IMAGE COULDN'T BE UNLINKED.");
+                }
+            });
+        } else if (request.file.mimetype == "image/png" || request.file.mimetype == "image/jpg" || request.file.mimetype == "image/jpeg") {
+            var image = request.file.filename;
+        } else {
+            errorMessagesExternal.push("ONLY .PNG, .JPG AND .JPEG FORMATS ARE ALLOWED.");
+            fs.unlink(imagePath, (error) => {
+                if (error) {
+                    errorMessagesInternal.push("AN IMAGE COULDN'T BE UNLINKED.");
+                }
+            });
+        }
     } else {
         errorMessagesExternal.push("AN IMAGE NEEDS TO BE SELECTED.");
     }
@@ -224,21 +244,34 @@ router.post("/delete/:id", (request, response) => {
 
     const id = request.params.id;
 
-    database.deleteNews(id, (error) => {
+    database.getImageName(id, (error, imageName) => {
         if (error) {
-            errorMessagesInternal.push("YOUR ENTRY COULDN'T BE DELETED.");
-
-            response.render("news-entry", {
-                webTitle: "ERROR",
-                webStyle: "news-entry.css",
-                errorMessagesInternal,
-            });
+            errorMessagesInternal.push("IMAGE NAME COULDN'T BE RETRIEVED.");
         } else {
-            database.updateSequenceNews((error) => {
+            database.deleteNews(id, (error) => {
                 if (error) {
-                    errorMessagesInternal.push("TABLE'S AUTOINCREMENT COULDN'T BE RESET.");
+                    errorMessagesInternal.push("YOUR ENTRY COULDN'T BE DELETED.");
+
+                    response.render("news-entry", {
+                        webTitle: "ERROR",
+                        webStyle: "news-entry.css",
+                        errorMessagesInternal,
+                    });
                 } else {
-                    response.redirect("/news");
+                    const imagePath = "./public/uploads/" + imageName.image;
+                    fs.unlink(imagePath, (error) => {
+                        if (error) {
+                            errorMessagesInternal.push("AN IMAGE COULDN'T BE UNLINKED.");
+                        }
+                    });
+
+                    database.updateSequenceNews((error) => {
+                        if (error) {
+                            errorMessagesInternal.push("TABLE'S AUTOINCREMENT COULDN'T BE RESET.");
+                        } else {
+                            response.redirect("/news");
+                        }
+                    });
                 }
             });
         }

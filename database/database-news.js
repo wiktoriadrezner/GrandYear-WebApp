@@ -35,8 +35,17 @@ exports.editNews = (newDate, newTitle, newPost, id, callback) => {
     });
 };
 
+exports.getImageName = (id, callback) => {
+    const query = `SELECT image FROM news WHERE id = ?`;
+    const values = [id];
+
+    database.get(query, values, (error, imageName) => {
+        callback(error, imageName);
+    });
+};
+
 exports.deleteNews = (id, callback) => {
-    const query = "DELETE FROM news WHERE id = ?";
+    const query = `DELETE FROM news WHERE id = ?`;
     const values = [id];
 
     database.get(query, values, (error) => {
