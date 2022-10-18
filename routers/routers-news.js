@@ -1,6 +1,7 @@
 const express = require("express");
 const database = require("../database/database-news.js");
 const multer = require("multer");
+const path = require("path");
 const fs = require("node:fs");
 
 const storage = multer.diskStorage({
