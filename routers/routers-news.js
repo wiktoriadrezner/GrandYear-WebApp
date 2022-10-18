@@ -1,12 +1,11 @@
 const express = require("express");
 const database = require("../database/database-news.js");
 const multer = require("multer");
-const path = require("path");
 const fs = require("node:fs");
 
 const storage = multer.diskStorage({
     destination(request, file, cb) {
-        cb(null, path.join(__dirname, "/public/uploads"));
+        cb(null, ".public/uploads");
     },
     filename(request, file, cb) {
         cb(null, file.originalname);
