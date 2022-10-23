@@ -10,7 +10,7 @@ const routerContact = require("./routers/routers-contact.js");
 const routerSearch = require("./routers/routers-search.js");
 
 const adminUsername = "admin";
-const adminPassword = "$2b$10$fW7fJD0qOlrcXq64ztFmaeUUQb9Tn3N7efaXzyaiCr3vsPXL5Zpvm";
+const adminPassword = "$2b$10$IDNQFayhy9Y4aqhJ58IdsOrURyyij0Btgeo9z2deg1BEmvP5a/xvm";
 
 const app = express();
 
