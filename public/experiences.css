@@ -82,6 +82,9 @@ body {
 .gridSection03 a:hover {
     color: var(--color-05);
 }
+.gridSection03 p {
+    text-align: center;
+}
 .gridSection03 p,
 .gridSection05 p {
     margin-bottom: 2.5vw;
@@ -102,7 +105,7 @@ body {
     padding: 4vw;
 }
 .gridSection06 h2 {
-    text-align: right;
+    text-align: left;
     color: var(--color-05);
 }
 .gridSection06 p {

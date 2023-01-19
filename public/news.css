@@ -27,7 +27,7 @@ body {
 .paragraphSection02 {
     color: var(--color-03);
     padding: 0 15vw 3vw 15vw;
-    text-align: justify;
+    text-align: center;
 }
 .errorNoEntries {
     color: var(--color-03);

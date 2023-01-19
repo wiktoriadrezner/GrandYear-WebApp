@@ -73,6 +73,7 @@ body {
 .gridSection03 div p {
     color: var(--color-03);
     padding-top: 0.2vw;
+    text-align: center;
 }
 
 /* FOOTER*/

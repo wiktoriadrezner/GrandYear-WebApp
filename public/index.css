@@ -59,6 +59,7 @@
 .gridSection04 p,
 .gridSection05 p {
     color: var(--color-03);
+    text-align: center;
 }
 
 /* SECTION 6: ABOUT THE FOUNDER — TEXT */
@@ -69,7 +70,7 @@
     padding: 3vw 2vw 0 1vw;
 }
 .gridSection06 h2 {
-    text-align: right;
+    text-align: left;
     color: var(--color-05);
 }
 
