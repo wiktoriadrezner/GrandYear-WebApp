@@ -1,5 +1,5 @@
 # Grand Year — Web Application
-A web application written in JavaScript and Handlebars with a relational database with the possibility to add, delete and edit new resources. The web application and a database were deployed on the same server on Amazon Lightsail.
+A web application written in JavaScript and Handlebars with a relational database that supports the 4 CRUD operations. The application and a database were deployed on the same server on Amazon Lightsail.
 
 ### Functionalities
 * Implementing four CRUD operations for three resources available on the website
