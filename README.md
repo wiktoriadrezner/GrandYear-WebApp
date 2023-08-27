@@ -10,4 +10,4 @@ A web application written in JavaScript and Handlebars with a relational databas
 * Introducing additional security measures, such as session regenerations, expiring cookies and hashing passwords with bcrypt
 
 ### Technology Stack
-Express | JavaScript | Handlebars | HTML | CSS | SQL
+Express | JavaScript | Handlebars | CSS | SQL
