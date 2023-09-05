@@ -1,3 +1,5 @@
+// Start Nodemon: nodemon app.js
+
 const express = require("express");
 const bcrypt = require("bcrypt");
 const expressHandlebars = require("express-handlebars");
